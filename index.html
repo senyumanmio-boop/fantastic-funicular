@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TENTANG HAKIM</title>
+    <title>Hakim Ultimate Website</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             text-align: center;
             margin: 0;
             padding: 20px;
-            /* Latar Belakang Pemandangan Masa Depan Hijau */
+            /* Latar Pemandangan Masa Depan */
             background: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
@@ -17,101 +17,139 @@
             min-height: 100vh;
         }
         .container {
-            background: rgba(255, 255, 255, 0.15); /* Efek kaca transparan */
-            backdrop-filter: blur(15px); /* Buram di belakang kotak */
-            -webkit-backdrop-filter: blur(15px);
-            padding: 40px;
+            background: rgba(0, 0, 0, 0.7); /* Kotak transparan gelap */
+            backdrop-filter: blur(12px); /* Efek kaca */
+            padding: 35px;
             border-radius: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            max-width: 420px;
+            border: 2px solid #2ecc71;
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
+            max-width: 450px;
             width: 100%;
             color: white;
         }
         h1 {
-            color: #2ecc71; /* Hijau cerah masa depan */
-            text-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+            color: #2ecc71;
+            text-shadow: 0 0 10px #2ecc71;
             margin-bottom: 5px;
-            letter-spacing: 2px;
-        }
-        p {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 20px;
+            font-size: 2em;
         }
         .profile-img {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            margin-top: 10px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%; /* Foto bulat */
             border: 5px solid #2ecc71;
-            object-fit: cover; /* AGAR FOTO TIDAK LONJONG */
-            box-shadow: 0 0 25px rgba(46, 204, 113, 0.5);
+            object-fit: cover; /* Biar nggak lonjong */
+            margin-top: 15px;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
             transition: 0.5s;
         }
         .profile-img:hover {
-            transform: rotate(5deg) scale(1.05);
+            transform: scale(1.05) rotate(3deg);
         }
         .btn-container {
-            margin-top: 30px;
+            margin-top: 25px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         .btn {
-            padding: 14px;
-            border-radius: 15px;
+            padding: 12px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
             transition: 0.3s;
-            display: block;
             text-transform: uppercase;
-            letter-spacing: 1px;
             font-size: 0.9em;
         }
-        .ig { 
-            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); 
-            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
-        }
-        .wa { 
-            background: #25d366; 
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.1);
-        }
-        .marquee-container {
+        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+        .wa { background: #25d366; }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        /* SEKSI GAME */
+        .game-box {
             margin-top: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px;
-            border-radius: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .marquee-text {
-            color: #2ecc71;
+        input {
+            padding: 10px;
+            width: 50px;
+            border-radius: 8px;
+            border: none;
+            text-align: center;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: #2ecc71;
+            color: white;
             font-weight: bold;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        #msg { margin-top: 15px; font-weight: bold; min-height: 20px; }
+
+        .footer-text {
+            margin-top: 25px;
+            color: #2ecc71;
             font-family: 'Courier New', monospace;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>✨SELAMAT DATANG✨</h1>
-        <p>User: Hakim | Status: Online</p>
+        <h1>PROFIL HAKIM</h1>
+        <p>Status: Online | Location: Future City</p>
         
-        <img src="foto.jpg" alt="Hakim Profile" class="profile-img">
+        <img src="foto.jpg" alt="Hakim" class="profile-img">
         
         <div class="btn-container">
-            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">Instagram</a>
-            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">WhatsApp</a>
+            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">Instagram Access</a>
+            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">WhatsApp Direct</a>
         </div>
-        
-        <div class="marquee-container">
-            <marquee class="marquee-text">
-                TERIMAKASIH TELAH BERKUNJUNG KE WEBSITE INI, SEMOGA HARIMU MENYENANGKAN 🌿✨
-            </marquee>
+
+        <div class="game-box">
+            <h3 style="margin-top:0;">🎮 Game: Tebak 1-10</h3>
+            <input type="number" id="guess" placeholder="?">
+            <button onclick="play()">TEBAK</button>
+            <div id="msg"></div>
+            <p style="margin-bottom:0;">Skor: <span id="score">0</span></p>
         </div>
+
+        <marquee class="footer-text">
+            SISTEM BERHASIL DIUPDATE... SELAMAT DATANG DI DUNIA MASA DEPAN HAKIM... 🚀✨
+        </marquee>
     </div>
+
+    <script>
+        let score = 0;
+        let secret = Math.floor(Math.random() * 10) + 1;
+
+        function play() {
+            let userVal = document.getElementById('guess').value;
+            let msg = document.getElementById('msg');
+            let scoreDisp = document.getElementById('score');
+
+            if (userVal == secret) {
+                score += 10;
+                msg.innerHTML = "🎯 BOOM! BENER! (+10)";
+                msg.style.color = "#2ecc71";
+                secret = Math.floor(Math.random() * 10) + 1; // acak lagi
+            } else {
+                msg.innerHTML = "❌ AH SALAH! COBA LAGI";
+                msg.style.color = "#ff4757";
+            }
+            scoreDisp.innerHTML = score;
+            document.getElementById('guess').value = "";
+        }
+    </script>
+
 </body>
 </html>
