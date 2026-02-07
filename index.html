@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>TENTANG HAKIM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -55,10 +57,14 @@
             font-weight: bold;
             font-size: 0.8em;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Jarak antara logo dan tulisan */
         }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
         .wa { background: #25d366; }
         .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-sm i { font-size: 1.2em; }
 
         /* Styling Area Game */
         .game-hub {
@@ -91,7 +97,7 @@
         .card { width: 55px; height: 55px; background: #2ecc71; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
         .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
 
-        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #2ecc71; color: white; border-radius: 10px; cursor: pointer; }
+        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #2ecc71; color: white; border-radius: 10px; cursor: pointer; }
         .opt-btn:hover { background: #2ecc71; }
     </style>
 </head>
@@ -104,8 +110,12 @@
     <img src="foto.jpg" alt="Hakim" class="profile-img">
     
     <div class="btn-container">
-        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">INSTAGRAM</a>
-        <a href="https://wa.me/6282392472248" class="btn-sm wa" target="_blank">WHATSAPP</a>
+        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">
+            <i class="fab fa-instagram"></i> INSTAGRAM
+        </a>
+        <a href="https://wa.me/6282392472248" class="btn-sm wa" target="_blank">
+            <i class="fab fa-whatsapp"></i> WHATSAPP
+        </a>
     </div>
 
     <div class="game-hub">
@@ -310,4 +320,4 @@
 </script>
 
 </body>
-</html>l>
+</html>
