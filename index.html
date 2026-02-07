@@ -84,7 +84,7 @@
 
         /* SOS / Tic Tac Toe Grid */
         .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
-        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
+        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; color: #fff; font-weight: bold; }
 
         /* Memory Card Grid */
         .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
@@ -114,7 +114,7 @@
         
         <button class="menu-btn" onclick="showGame('kuis')">Kuis Hakim</button>
         <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS (TicTacToe)</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS (vs Komputer)</button>
         <button class="menu-btn" onclick="showGame('mem')">Memori Kartu</button>
 
         <div id="game-kuis" class="game-screen">
@@ -125,7 +125,7 @@
         </div>
 
         <div id="game-batu" class="game-screen">
-            <h4>Pilih Senjata Anda:</h4>
+            <h4>Pilih Senjata:</h4>
             <button class="menu-btn" onclick="playBatu('✊')">✊ Batu</button>
             <button class="menu-btn" onclick="playBatu('✌️')">✌️ Gunting</button>
             <button class="menu-btn" onclick="playBatu('✋')">✋ Kertas</button>
@@ -133,7 +133,7 @@
         </div>
 
         <div id="game-ttt" class="game-screen">
-            <h4>Main SOS (X)</h4>
+            <p id="ttt-status">Giliran Kamu (X)</p>
             <div class="ttt-grid" id="ttt-board"></div>
             <button class="menu-btn" onclick="resetTTT()" style="background:#e74c3c;">Reset Board</button>
         </div>
@@ -146,7 +146,7 @@
     </div>
 
     <marquee class="footer-text" style="margin-top:20px; display:block;">
-        SISTEM BERHASIL DIUPDATE... NIKMATI PERMAINAN DI DUNIA HAKIM... 🚀✨
+        SISTEM BERHASIL DIUPDATE... LAWAN KOMPUTER DAN DAPATKAN SKOR TERTINGGI! 🚀✨
     </marquee>
 </div>
 
@@ -167,10 +167,10 @@
 
     // --- LOGIC KUIS ---
     const soalHakim = [
-        { q: "Apa hobi utama Hakim?", a: ["jalan jalan", "hadroh", "Tidur"], c: 0 },
+        { q: "Apa hobi utama Hakim?", a: ["Main Futsal", "Main Game", "Tidur"], c: 0 },
         { q: "Warna favorit Hakim itu apa?", a: ["Merah", "Hijau Neon", "Hitam"], c: 1 },
-        { q: "Apa cita-cita Hakim?", a: ["jadi hakim pengadilan", "Pilot", "Pengusaha"], c: 0 },
-        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "gabisa diam"], c: 0 },
+        { q: "Apa cita-cita Hakim?", a: ["Programmer", "Pilot", "Pengusaha"], c: 0 },
+        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "Suka Marah"], c: 0 },
         { q: "Jawaban nomor 5 terserah Hakim?", a: ["Ya", "Tidak", "Mungkin"], c: 0 }
     ];
     let curS = 0;
@@ -184,8 +184,7 @@
             optDiv.innerHTML = "";
             s.a.forEach((o, i) => {
                 let btn = document.createElement('button');
-                btn.className = "opt-btn";
-                btn.innerText = o;
+                btn.className = "opt-btn"; btn.innerText = o;
                 btn.onclick = () => {
                     if(i === s.c) { addScore(20); document.getElementById('msg-kuis').innerText = "✅ Benar! +20"; }
                     else { document.getElementById('msg-kuis').innerText = "❌ Salah!"; }
@@ -204,28 +203,74 @@
         const p = ['✊','✌️','✋']; const c = p[Math.floor(Math.random()*3)];
         let r = (u==c) ? "Seri!" : ((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊')) ? "Menang! +10" : "Kalah!";
         if(r.includes("Menang")) addScore(10);
-        document.getElementById('res-batu').innerText = `Kamu: ${u} vs Komputer: ${c} \nHASIL: ${r}`;
+        document.getElementById('res-batu').innerText = `Komp: ${c} | Hasil: ${r}`;
     }
 
-    // --- LOGIC TIC TAC TOE ---
-    let board = Array(9).fill('');
+    // --- LOGIC TIC TAC TOE (VS COMPUTER) ---
+    let tttBoard = Array(9).fill('');
+    let isGameActive = true;
+
     function resetTTT() {
-        board = Array(9).fill('');
-        let grid = document.getElementById('ttt-board');
+        tttBoard = Array(9).fill('');
+        isGameActive = true;
+        document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
+        const grid = document.getElementById('ttt-board');
         grid.innerHTML = "";
         for(let i=0; i<9; i++) {
             let cell = document.createElement('div');
             cell.className = "ttt-cell";
-            cell.onclick = () => {
-                if(!board[i]) { board[i] = 'X'; cell.innerText = 'X'; addScore(5); }
-            };
+            cell.id = "ttt-"+i;
+            cell.onclick = () => playerMove(i);
             grid.appendChild(cell);
         }
+    }
+
+    function playerMove(i) {
+        if(!tttBoard[i] && isGameActive) {
+            tttBoard[i] = 'X';
+            document.getElementById("ttt-"+i).innerText = 'X';
+            if(checkWin('X')) {
+                document.getElementById('ttt-status').innerText = "KAMU MENANG! 🎉";
+                addScore(50);
+                isGameActive = false;
+            } else if(tttBoard.every(cell => cell !== '')) {
+                document.getElementById('ttt-status').innerText = "Seri! 🤝";
+                isGameActive = false;
+            } else {
+                isGameActive = false;
+                document.getElementById('ttt-status').innerText = "Komputer mikir...";
+                setTimeout(computerMove, 600);
+            }
+        }
+    }
+
+    function computerMove() {
+        if(!isGameActive && tttBoard.some(c => c === '')) {
+            let available = tttBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
+            let move = available[Math.floor(Math.random() * available.length)];
+            tttBoard[move] = 'O';
+            document.getElementById("ttt-"+move).innerText = 'O';
+            document.getElementById("ttt-"+move).style.color = "#e74c3c";
+            
+            if(checkWin('O')) {
+                document.getElementById('ttt-status').innerText = "Komputer Menang! 🤖";
+            } else {
+                document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
+                isGameActive = true;
+            }
+        }
+    }
+
+    function checkWin(p) {
+        const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        return winPatterns.some(pattern => pattern.every(index => tttBoard[index] === p));
     }
 
     // --- LOGIC MEMORY ---
     let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
     let flipped = [];
+    let lockBoard = false;
+
     function startMem() {
         icons.sort(() => Math.random() - 0.5);
         let mBoard = document.getElementById('mem-board');
@@ -238,25 +283,31 @@
             mBoard.appendChild(card);
         });
     }
+
     function flipCard(idx) {
         let card = document.getElementById('card-'+idx);
-        if(flipped.length < 2 && !card.classList.contains('flipped')) {
-            card.classList.add('flipped');
-            flipped.push({ icon, idx });
-            if(flipped.length === 2) {
-                if(icons[flipped[0].idx] === icons[flipped[1].idx]) {
-                    addScore(30); flipped = [];
-                } else {
-                    setTimeout(() => {
-                        document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
-                        document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
-                        flipped = [];
-                    }, 800);
-                }
+        if(lockBoard || card.classList.contains('flipped')) return;
+        
+        card.classList.add('flipped');
+        flipped.push({ icon: icons[idx], idx: idx });
+        
+        if(flipped.length === 2) {
+            lockBoard = true;
+            if(flipped[0].icon === flipped[1].icon) {
+                addScore(30);
+                flipped = [];
+                lockBoard = false;
+            } else {
+                setTimeout(() => {
+                    document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
+                    document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
+                    flipped = [];
+                    lockBoard = false;
+                }, 800);
             }
         }
     }
 </script>
 
 </body>
-</html>
+</html>l>
