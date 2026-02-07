@@ -3,19 +3,30 @@
 <head>
     <title>Website Hakim</title>
     <style>
-        body { font-family: Arial; text-align: center; background-color: #e3f2fd; padding: 50px; }
-        .box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: inline-block; }
-        h1 { color: #1565c0; }
-        img { width: 300px; border-radius: 15px; margin-top: 20px; border: 5px solid #1565c0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f0f2f5; padding: 50px; margin: 0; }
+        .box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: inline-block; max-width: 400px; }
+        h1 { color: #1565c0; margin-bottom: 10px; }
+        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 4px solid #1565c0; transition: 0.3s; }
+        img:hover { transform: scale(1.02); }
+        .btn-container { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; }
+        .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .wa { background-color: #25d366; }
+        .btn:hover { opacity: 0.8; transform: translateY(-3px); }
     </style>
 </head>
 <body>
     <div class="box">
-        <h1>🚀 Website Hakim Berhasil Online!</h1>
-        <p>Lihat Kim, foto saya sudah muncul di bawah ini:</p>
+        <h1>🚀 Profil Hakim</h1>
+        <p>Halo! Selamat datang di website resmi saya.</p>
         
         <img src="foto.jpg" alt="Foto Hakim">
         
+        <div class="btn-container">
+            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">📸 Follow Instagram</a>
+            
+            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">💬 Chat WhatsApp</a>
+        </div>
     </div>
 </body>
 </html>
