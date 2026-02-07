@@ -10,7 +10,6 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            /* Latar Pemandangan Masa Depan */
             background: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
@@ -62,7 +61,7 @@
             gap: 8px;
         }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .wa { background: #25d366; } /* Warna Hijau WA Tetap Sama */
+        .wa { background: #25d366; }
         .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.1); }
         .btn-sm i { font-size: 1.2em; }
 
@@ -75,7 +74,6 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
         
-        /* WARNA BARU UNTUK TOMBOL GAME: BIRU TEAL (#3498db) */
         .menu-btn {
             background: #3498db; 
             color: white;
@@ -87,7 +85,7 @@
             font-weight: bold;
             font-size: 0.8em;
             transition: 0.2s;
-            box-shadow: 0 4px 0 #2980b9; /* Efek tombol klik */
+            box-shadow: 0 4px 0 #2980b9;
         }
         .menu-btn:active {
             transform: translateY(3px);
@@ -111,6 +109,40 @@
 
         .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
         .opt-btn:hover { background: #3498db; }
+
+        /* --- STYLING BARU UNTUK TEKS BERJALAN --- */
+        .footer-wrap {
+            margin-top: 25px;
+            width: 100%;
+            overflow: hidden;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 50px;
+            padding: 12px 0;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            position: relative;
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #2ecc71;
+            text-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
+            animation: scroll-left 20s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .footer-wrap:hover .scrolling-text {
+            animation-play-state: paused;
+            color: #fff;
+            text-shadow: 0 0 15px #2ecc71;
+            cursor: default;
+        }
     </style>
 </head>
 <body>
@@ -167,13 +199,14 @@
         </div>
     </div>
 
-    <marquee class="footer-text" style="margin-top:20px; display:block;">
-        TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI, SEMOGA HARIMU MENYENANGKAN 🚀✨
-    </marquee>
+    <div class="footer-wrap">
+        <div class="scrolling-text">
+            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ HAKIM ARCADE CENTER v2.0 🎮 STAY COOL & KEEP PLAYING! 🔥
+        </div>
+    </div>
 </div>
 
 <script>
-    // Logic Javascript tetap sama seperti sebelumnya agar game berfungsi normal
     let globalScore = 0;
     function addScore(n) { 
         globalScore += n; 
@@ -190,9 +223,9 @@
 
     const soalHakim = [
         { q: "Apa hobi utama Hakim?", a: ["Hadroh", "Baca buku", "Tidur"], c: 0 },
-        { q: "Warna favorit Hakim itu apa?", a: ["putih", "Merah", "Hitam"], c: 1 },
+        { q: "Warna favorit Hakim itu apa?", a: ["Putih", "Merah", "Hitam"], c: 1 },
         { q: "Apa cita-cita Hakim?", a: ["Pengusaha", "Pilot", "Hakim Pengadilan"], c: 0 },
-        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "marah"], c: 0 },
+        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "Marah"], c: 0 },
         { q: "Siapa Club Bola Fav Hakim?", a: ["Barca", "Madrid", "Man Utd"], c: 0 }
     ];
     let curS = 0;
