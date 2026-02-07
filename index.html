@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TENTANG HAKIM</title>
+    <title>Hakim Eco-City Profile</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             margin: 0;
             padding: 20px;
-            /* Latar Belakang Pemandangan Masa Depan */
-            background: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            /* Latar Belakang Pemandangan Masa Depan Hijau */
+            background: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -17,74 +17,101 @@
             min-height: 100vh;
         }
         .container {
-            background: rgba(0, 0, 0, 0.75); /* Kotak transparan gelap */
-            backdrop-filter: blur(10px); /* Efek kaca buram */
+            background: rgba(255, 255, 255, 0.15); /* Efek kaca transparan */
+            backdrop-filter: blur(15px); /* Buram di belakang kotak */
+            -webkit-backdrop-filter: blur(15px);
             padding: 40px;
-            border-radius: 25px;
-            border: 2px solid #00d4ff; /* Garis pinggir neon */
-            box-shadow: 0 0 20px #00d4ff;
-            max-width: 400px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
             width: 100%;
             color: white;
         }
         h1 {
-            color: #00d4ff;
-            text-shadow: 0 0 10px #00d4ff;
+            color: #2ecc71; /* Hijau cerah masa depan */
+            text-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
             margin-bottom: 5px;
+            letter-spacing: 2px;
         }
-        img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%; /* Tetap bulat */
-            margin-top: 20px;
-            border: 4px solid #00d4ff;
-            object-fit: cover; /* BIAR FOTO TIDAK LONJONG/GEPENG */
-            box-shadow: 0 0 15px #00d4ff;
+        p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin-top: 10px;
+            border: 5px solid #2ecc71;
+            object-fit: cover; /* AGAR FOTO TIDAK LONJONG */
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.5);
+            transition: 0.5s;
+        }
+        .profile-img:hover {
+            transform: rotate(5deg) scale(1.05);
         }
         .btn-container {
-            margin-top: 25px;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
         .btn {
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 15px;
             text-decoration: none;
             color: white;
             font-weight: bold;
             transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.3);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
         }
-        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .wa { background: #25d366; }
+        .ig { 
+            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); 
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+        }
+        .wa { 
+            background: #25d366; 
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
         .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px white;
+            transform: translateY(-3px);
+            filter: brightness(1.1);
+        }
+        .marquee-container {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 10px;
         }
         .marquee-text {
-            margin-top: 30px;
-            color: #00d4ff;
-            font-family: 'Courier New', Courier, monospace; /* Gaya font kode */
+            color: #2ecc71;
             font-weight: bold;
+            font-family: 'Courier New', monospace;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>SELAMAT DATANG</h1>
-        <p>User: Hakim | Status: Active</p>
+        <p>User: Hakim | Status: Online</p>
         
-        <img src="foto.jpg" alt="Hakim Profile">
+        <img src="foto.jpg" alt="Hakim Profile" class="profile-img">
         
         <div class="btn-container">
-            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">INSTAGRAM</a>
-            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">WHATSAPP</a>
+            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">Access Instagram</a>
+            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">Connect WhatsApp</a>
         </div>
         
-        <marquee class="marquee-text">
-            INITIALIZING NEURAL LINK... WELCOME TO HAKIM'S FUTURE WORLD... STAY COOL!
-        </marquee>
+        <div class="marquee-container">
+            <marquee class="marquee-text">
+                GENERATING CLEAN ENERGY... PLANTING VIRTUAL TREES... HAVE A GREEN DAY, HAKIM! 🌿✨
+            </marquee>
+        </div>
     </div>
 </body>
 </html>
