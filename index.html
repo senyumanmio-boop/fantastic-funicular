@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hakim Ultimate Website</title>
+    <title>Hakim Arcade Center</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -15,141 +15,248 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            color: white;
         }
         .container {
-            background: rgba(0, 0, 0, 0.7); /* Kotak transparan gelap */
-            backdrop-filter: blur(12px); /* Efek kaca */
-            padding: 35px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 30px;
             border-radius: 30px;
             border: 2px solid #2ecc71;
             box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
-            max-width: 450px;
+            max-width: 480px;
             width: 100%;
-            color: white;
         }
         h1 {
             color: #2ecc71;
             text-shadow: 0 0 10px #2ecc71;
             margin-bottom: 5px;
-            font-size: 2em;
         }
         .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%; /* Foto bulat */
-            border: 5px solid #2ecc71;
-            object-fit: cover; /* Biar nggak lonjong */
-            margin-top: 15px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #2ecc71;
+            object-fit: cover;
+            margin-top: 10px;
             box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
-            transition: 0.5s;
-        }
-        .profile-img:hover {
-            transform: scale(1.05) rotate(3deg);
         }
         .btn-container {
-            margin-top: 25px;
+            margin: 20px 0;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 10px;
+            justify-content: center;
         }
-        .btn {
-            padding: 12px;
-            border-radius: 12px;
+        .btn-sm {
+            padding: 10px 15px;
+            border-radius: 10px;
             text-decoration: none;
             color: white;
             font-weight: bold;
+            font-size: 0.8em;
             transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 0.9em;
         }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
         .wa { background: #25d366; }
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
-        /* SEKSI GAME */
-        .game-box {
-            margin-top: 30px;
+        /* Styling Area Game */
+        .game-hub {
+            margin-top: 20px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
         }
-        input {
-            padding: 10px;
-            width: 50px;
-            border-radius: 8px;
-            border: none;
-            text-align: center;
-            font-size: 1em;
-        }
-        button {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
+        .menu-btn {
             background: #2ecc71;
             color: white;
-            font-weight: bold;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-left: 5px;
-        }
-        #msg { margin-top: 15px; font-weight: bold; min-height: 20px; }
-
-        .footer-text {
-            margin-top: 25px;
-            color: #2ecc71;
-            font-family: 'Courier New', monospace;
             font-weight: bold;
+            font-size: 0.8em;
         }
+        .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+        /* SOS / Tic Tac Toe Grid */
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
+        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
+
+        /* Memory Card Grid */
+        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
+        .card { width: 55px; height: 55px; background: #2ecc71; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
+        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
+
+        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #2ecc71; color: white; border-radius: 10px; cursor: pointer; }
+        .opt-btn:hover { background: #2ecc71; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>PROFIL HAKIM</h1>
-        <p>Status: Online | Location: Future City</p>
-        
-        <img src="foto.jpg" alt="Hakim" class="profile-img">
-        
-        <div class="btn-container">
-            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">Instagram Access</a>
-            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">WhatsApp Direct</a>
-        </div>
-
-        <div class="game-box">
-            <h3 style="margin-top:0;">🎮 Game: Tebak 1-10</h3>
-            <input type="number" id="guess" placeholder="?">
-            <button onclick="play()">TEBAK</button>
-            <div id="msg"></div>
-            <p style="margin-bottom:0;">Skor: <span id="score">0</span></p>
-        </div>
-
-        <marquee class="footer-text">
-            SISTEM BERHASIL DIUPDATE... SELAMAT DATANG DI DUNIA MASA DEPAN HAKIM... 🚀✨
-        </marquee>
+<div class="container">
+    <h1>PROFIL HAKIM</h1>
+    <p>Status: Online | Location: Future City</p>
+    
+    <img src="foto.jpg" alt="Hakim" class="profile-img">
+    
+    <div class="btn-container">
+        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">Instagram Access</a>
+        <a href="https://wa.me/6282392472248" class="btn-sm wa" target="_blank">WhatsApp Direct</a>
     </div>
 
-    <script>
-        let score = 0;
-        let secret = Math.floor(Math.random() * 10) + 1;
+    <div class="game-hub">
+        <h3 style="margin-top:0;">🎮 HAKIM ARCADE CENTER</h3>
+        <p>Skor Anda: <span id="score-val" style="color:#f1c40f; font-weight:bold;">0</span></p>
+        
+        <button class="menu-btn" onclick="showGame('kuis')">Kuis Hakim</button>
+        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS (TicTacToe)</button>
+        <button class="menu-btn" onclick="showGame('mem')">Memori Kartu</button>
 
-        function play() {
-            let userVal = document.getElementById('guess').value;
-            let msg = document.getElementById('msg');
-            let scoreDisp = document.getElementById('score');
+        <div id="game-kuis" class="game-screen">
+            <h4 id="no-soal">Soal 1</h4>
+            <p id="tanya-kuis"></p>
+            <div id="opsi-kuis"></div>
+            <p id="msg-kuis"></p>
+        </div>
 
-            if (userVal == secret) {
-                score += 10;
-                msg.innerHTML = "🎯 BOOM! BENER! (+10)";
-                msg.style.color = "#2ecc71";
-                secret = Math.floor(Math.random() * 10) + 1; // acak lagi
-            } else {
-                msg.innerHTML = "❌ AH SALAH! COBA LAGI";
-                msg.style.color = "#ff4757";
-            }
-            scoreDisp.innerHTML = score;
-            document.getElementById('guess').value = "";
+        <div id="game-batu" class="game-screen">
+            <h4>Pilih Senjata Anda:</h4>
+            <button class="menu-btn" onclick="playBatu('✊')">✊ Batu</button>
+            <button class="menu-btn" onclick="playBatu('✌️')">✌️ Gunting</button>
+            <button class="menu-btn" onclick="playBatu('✋')">✋ Kertas</button>
+            <p id="res-batu" style="font-weight:bold; margin-top:10px;"></p>
+        </div>
+
+        <div id="game-ttt" class="game-screen">
+            <h4>Main SOS (X)</h4>
+            <div class="ttt-grid" id="ttt-board"></div>
+            <button class="menu-btn" onclick="resetTTT()" style="background:#e74c3c;">Reset Board</button>
+        </div>
+
+        <div id="game-mem" class="game-screen">
+            <h4>Cari Pasangan Gambar</h4>
+            <div class="mem-grid" id="mem-board"></div>
+            <button class="menu-btn" onclick="startMem()" style="background:#e74c3c;">Reset Kartu</button>
+        </div>
+    </div>
+
+    <marquee class="footer-text" style="margin-top:20px; display:block;">
+        SISTEM BERHASIL DIUPDATE... NIKMATI PERMAINAN DI DUNIA HAKIM... 🚀✨
+    </marquee>
+</div>
+
+<script>
+    let globalScore = 0;
+    function addScore(n) { 
+        globalScore += n; 
+        document.getElementById('score-val').innerText = globalScore; 
+    }
+
+    function showGame(id) {
+        document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
+        document.getElementById('game-' + id).style.display = 'block';
+        if(id === 'kuis') startKuis();
+        if(id === 'ttt') resetTTT();
+        if(id === 'mem') startMem();
+    }
+
+    // --- LOGIC KUIS ---
+    const soalHakim = [
+        { q: "Apa hobi utama Hakim?", a: ["jalan jalan", "hadroh", "Tidur"], c: 0 },
+        { q: "Warna favorit Hakim itu apa?", a: ["Merah", "Hijau Neon", "Hitam"], c: 1 },
+        { q: "Apa cita-cita Hakim?", a: ["jadi hakim pengadilan", "Pilot", "Pengusaha"], c: 0 },
+        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "gabisa diam"], c: 0 },
+        { q: "Jawaban nomor 5 terserah Hakim?", a: ["Ya", "Tidak", "Mungkin"], c: 0 }
+    ];
+    let curS = 0;
+    function startKuis() { curS = 0; showSoal(); }
+    function showSoal() {
+        if(curS < soalHakim.length) {
+            let s = soalHakim[curS];
+            document.getElementById('no-soal').innerText = "Pertanyaan " + (curS + 1);
+            document.getElementById('tanya-kuis').innerText = s.q;
+            let optDiv = document.getElementById('opsi-kuis');
+            optDiv.innerHTML = "";
+            s.a.forEach((o, i) => {
+                let btn = document.createElement('button');
+                btn.className = "opt-btn";
+                btn.innerText = o;
+                btn.onclick = () => {
+                    if(i === s.c) { addScore(20); document.getElementById('msg-kuis').innerText = "✅ Benar! +20"; }
+                    else { document.getElementById('msg-kuis').innerText = "❌ Salah!"; }
+                    setTimeout(() => { curS++; showSoal(); document.getElementById('msg-kuis').innerText = ""; }, 1000);
+                };
+                optDiv.appendChild(btn);
+            });
+        } else {
+            document.getElementById('tanya-kuis').innerText = "Kuis Selesai!";
+            document.getElementById('opsi-kuis').innerHTML = "";
         }
-    </script>
+    }
+
+    // --- LOGIC BATU GUNTING ---
+    function playBatu(u) {
+        const p = ['✊','✌️','✋']; const c = p[Math.floor(Math.random()*3)];
+        let r = (u==c) ? "Seri!" : ((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊')) ? "Menang! +10" : "Kalah!";
+        if(r.includes("Menang")) addScore(10);
+        document.getElementById('res-batu').innerText = `Kamu: ${u} vs Komputer: ${c} \nHASIL: ${r}`;
+    }
+
+    // --- LOGIC TIC TAC TOE ---
+    let board = Array(9).fill('');
+    function resetTTT() {
+        board = Array(9).fill('');
+        let grid = document.getElementById('ttt-board');
+        grid.innerHTML = "";
+        for(let i=0; i<9; i++) {
+            let cell = document.createElement('div');
+            cell.className = "ttt-cell";
+            cell.onclick = () => {
+                if(!board[i]) { board[i] = 'X'; cell.innerText = 'X'; addScore(5); }
+            };
+            grid.appendChild(cell);
+        }
+    }
+
+    // --- LOGIC MEMORY ---
+    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
+    let flipped = [];
+    function startMem() {
+        icons.sort(() => Math.random() - 0.5);
+        let mBoard = document.getElementById('mem-board');
+        mBoard.innerHTML = "";
+        icons.forEach((icon, idx) => {
+            let card = document.createElement('div');
+            card.className = "card"; card.id = "card-"+idx;
+            card.innerText = icon;
+            card.onclick = () => flipCard(idx);
+            mBoard.appendChild(card);
+        });
+    }
+    function flipCard(idx) {
+        let card = document.getElementById('card-'+idx);
+        if(flipped.length < 2 && !card.classList.contains('flipped')) {
+            card.classList.add('flipped');
+            flipped.push({ icon, idx });
+            if(flipped.length === 2) {
+                if(icons[flipped[0].idx] === icons[flipped[1].idx]) {
+                    addScore(30); flipped = [];
+                } else {
+                    setTimeout(() => {
+                        document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
+                        document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
+                        flipped = [];
+                    }, 800);
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
