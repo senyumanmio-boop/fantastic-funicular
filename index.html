@@ -1,32 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Website Hakim</title>
+    <title>Profil Hakim</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f0f2f5; padding: 50px; margin: 0; }
-        .box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: inline-block; max-width: 400px; }
-        h1 { color: #1565c0; margin-bottom: 10px; }
-        img { width: 100%; border-radius: 15px; margin-top: 15px; border: 4px solid #1565c0; transition: 0.3s; }
-        img:hover { transform: scale(1.02); }
-        .btn-container { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
-        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; }
-        .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .wa { background-color: #25d366; }
-        .btn:hover { opacity: 0.8; transform: translateY(-3px); }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            /* Gradasi Latar Belakang Keren */
+            background: linear-gradient(to right, #6dd5ed, #2193b0); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Memastikan tinggi halaman penuh */
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box; /* Agar padding tidak merusak lebar */
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* Bayangan lebih dramatis */
+            max-width: 450px; /* Lebar maksimum kotak */
+            width: 100%;
+            animation: fadeIn 1s ease-out; /* Animasi saat muncul */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #007bff; /* Warna biru cerah */
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        img {
+            width: 80%; /* Ukuran foto sedikit lebih kecil */
+            max-width: 300px;
+            border-radius: 50%; /* Membuat foto jadi bulat */
+            margin-top: 25px;
+            border: 6px solid #007bff; /* Bingkai biru cerah */
+            transition: transform 0.4s ease-in-out, border-color 0.4s ease-in-out;
+            object-fit: cover; /* Pastikan foto terlihat bagus di bingkai bulat */
+            height: 300px; /* Tinggi foto bulat */
+        }
+        img:hover {
+            transform: scale(1.05) rotate(3deg); /* Efek zoom dan putar saat disentuh */
+            border-color: #28a745; /* Ganti warna bingkai saat disentuh */
+        }
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* Jarak antar tombol */
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease-in-out;
+            display: flex; /* Agar ikon dan teks sejajar */
+            align-items: center;
+            justify-content: center;
+        }
+        .btn i { /* Gaya untuk ikon */
+            margin-right: 10px;
+            font-size: 1.3em;
+        }
+        .ig { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+        }
+        .wa { 
+            background-color: #25d366; 
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            opacity: 0.95;
+        }
+        .marquee-text {
+            margin-top: 35px;
+            color: #007bff; /* Warna teks marquee */
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 10px 0;
+            background-color: #e9f7fe; /* Latar belakang untuk teks berjalan */
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="box">
-        <h1>🚀 Profil Hakim</h1>
-        <p>Halo! Selamat datang di website resmi saya.</p>
+    <div class="container">
+        <h1>👋 Profil Keren Hakim 👋</h1>
+        <p>Selamat datang di website pribadi saya. Senang kamu mampir!</p>
         
-        <img src="foto.jpg" alt="Foto Hakim">
+        <img src="foto.jpg" alt="Foto Diri Hakim">
         
         <div class="btn-container">
-            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">📸 Follow Instagram</a>
+            <a href="https://instagram.com/kimmaja._" class="btn ig" target="_blank">
+                <i class="fab fa-instagram"></i> Follow Instagram
+            </a>
             
-            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">💬 Chat WhatsApp</a>
+            <a href="https://wa.me/6282392472248" class="btn wa" target="_blank">
+                <i class="fab fa-whatsapp"></i> Chat WhatsApp
+            </a>
         </div>
+        
+        <marquee class="marquee-text" behavior="scroll" direction="left">
+            Terima kasih sudah mengunjungi website Hakim! Semoga harimu menyenangkan! ✨
+        </marquee>
     </div>
 </body>
 </html>
