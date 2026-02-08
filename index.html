@@ -16,341 +16,320 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             color: white;
             overflow-x: hidden;
-            /* 1. Kursor disembunyikan untuk efek ekor */
             cursor: none; 
         }
 
-        /* STYLE EFEK KURSOR */
         .cursor-follower {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #2ecc71;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 15px #2ecc71, 0 0 30px #2ecc71;
+            width: 12px; height: 12px;
+            background: #2ecc71; border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            box-shadow: 0 0 15px #2ecc71;
             transition: transform 0.1s ease-out;
         }
 
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
         .container {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
-            padding: 30px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 25px;
             border-radius: 30px;
             border: 2px solid #2ecc71;
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
-            max-width: 480px;
-            width: 100%;
+            max-width: 500px;
+            margin: auto;
             position: relative;
             z-index: 2;
         }
 
-        h1 { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; margin-bottom: 5px; }
-        
-        /* STYLE TEKS OTOMATIS */
-        .typing-container {
-            height: 25px;
-            color: #f1c40f;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
         .profile-img {
-            width: 150px; height: 150px;
-            border-radius: 50%;
-            border: 4px solid #2ecc71;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
-            transition: 0.5s;
+            width: 120px; height: 120px;
+            border-radius: 50%; border: 4px solid #2ecc71;
+            object-fit: cover; transition: 0.5s;
         }
-        .profile-img:hover { transform: rotate(360deg) scale(1.1); }
+        .profile-img:hover { transform: scale(1.1) rotate(10deg); }
 
-        .btn-container { margin: 20px 0; display: flex; gap: 15px; justify-content: center; }
-        .btn-sm { padding: 10px 20px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; font-size: 0.85em; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .greeting { font-size: 1.2em; color: #2ecc71; font-weight: bold; margin: 10px 0; }
+        
+        .stats-info { font-size: 0.8em; color: #bdc3c7; margin-bottom: 10px; }
+
+        .btn-container { margin: 15px 0; display: flex; gap: 10px; justify-content: center; }
+        .btn-sm { padding: 8px 15px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; font-size: 0.8em; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .tt { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        .tt { background: #000; border: 1px solid rgba(255,255,255,0.2); }
 
         .game-hub {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px; border-radius: 20px; margin: 15px 0;
+            border: 1px solid rgba(46, 204, 113, 0.2);
         }
 
-        /* STYLE HIGH SCORE BOARD */
         .score-board {
-            display: flex;
-            justify-content: space-around;
+            display: flex; justify-content: space-around;
             background: rgba(46, 204, 113, 0.2);
-            padding: 10px;
-            border-radius: 15px;
-            margin-bottom: 15px;
+            padding: 10px; border-radius: 15px; margin-bottom: 15px;
         }
 
-        .menu-btn { background: #3498db; color: white; border: none; padding: 10px 14px; margin: 5px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.8em; transition: 0.2s; box-shadow: 0 4px 0 #2980b9; }
+        .menu-btn { 
+            background: #3498db; color: white; border: none; 
+            padding: 8px 15px; margin: 4px; border-radius: 8px; 
+            cursor: pointer; font-weight: bold; transition: 0.2s;
+            box-shadow: 0 4px 0 #2980b9;
+        }
         .menu-btn:active { transform: translateY(3px); box-shadow: none; }
 
+        .guest-book {
+            margin-top: 20px; text-align: left;
+            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .guest-input {
+            width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box; background: rgba(255,255,255,0.9);
+        }
+        .messages-list { height: 100px; overflow-y: auto; font-size: 0.85em; border-top: 1px solid #333; padding-top: 10px; }
+        .msg-item { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; margin-bottom: 5px; }
+
+        .confetti {
+            position: fixed; font-size: 25px; pointer-events: none; z-index: 999;
+            animation: fall 3s linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
         .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .music-btn { width: 50px; height: 50px; border-radius: 50%; background: #2ecc71; border: none; color: white; font-size: 20px; cursor: pointer; }
-        .music-btn.playing { animation: pulseMusic 1.5s infinite; background: #e74c3c; }
+        .music-btn { width: 45px; height: 45px; border-radius: 50%; background: #2ecc71; border: none; color: white; cursor: pointer; }
 
-        @keyframes pulseMusic { 0% { transform: scale(1); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-        .footer-wrap { margin-top: 25px; overflow: hidden; background: rgba(46, 204, 113, 0.1); border-radius: 50px; padding: 12px 0; border: 1px solid rgba(46, 204, 113, 0.3); }
-        .scrolling-text { display: inline-block; white-space: nowrap; font-weight: bold; font-size: 0.85em; color: #2ecc71; animation: scroll-left 15s linear infinite; }
-        @keyframes scroll-left { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-        .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
-        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; }
-        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
-        .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; }
-        .card.flipped { color: white; background: #e67e22; }
-        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
+        .game-screen { display: none; margin-top: 15px; border-top: 1px dashed #2ecc71; padding-top: 10px; }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: auto; }
+        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
+        .opt-btn { display: block; width: 100%; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #3498db; color: white; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="cursor-follower" id="cursor"></div>
-
 <canvas id="snow-canvas"></canvas>
 
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg"></audio>
+<audio id="sfxClick"><source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg"></audio>
+<audio id="sfxWin"><source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg"></audio>
 
 <div class="music-control">
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-        <i class="fas fa-music"></i>
-    </button>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()"><i class="fas fa-music"></i></button>
 </div>
 
 <div class="container">
-    <h1>✨SELAMAT DATANG✨</h1>
-    
-    <div class="typing-container" id="type-text"></div>
+    <div id="greeting-msg" class="greeting">Memuat...</div>
+    <div class="stats-info">👁️ Total Kunjungan Anda: <span id="visit-count">0</span></div>
     
     <img src="foto.jpg" alt="Hakim" class="profile-img">
     
+    <div style="margin: 10px 0; font-weight: bold; color: #f1c40f;" id="type-text"></div>
+
     <div class="btn-container">
-        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
-        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TIKTOK</a>
+        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> IG</a>
+        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
     </div>
 
     <div class="game-hub">
-        <h3 style="margin-top:0;">🎮 HAKIM ARCADE</h3>
-        
         <div class="score-board">
-            <div>Score: <span id="score-val" style="color:#f1c40f;">0</span></div>
-            <div>Best: <span id="high-score" style="color:#2ecc71;">0</span></div>
+            <div>Skor: <span id="score-val">0</span></div>
+            <div>Terbaik: <span id="high-score">0</span></div>
         </div>
         
-        <button class="menu-btn" onclick="showGame('kuis')">Kuis Hakim</button>
-        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
-        <button class="menu-btn" onclick="showGame('mem')">Memori</button>
+        <button class="menu-btn" onclick="playSfx('click'); showGame('kuis')">Kuis</button>
+        <button class="menu-btn" onclick="playSfx('click'); showGame('batu')">BatuGunting</button>
+        <button class="menu-btn" onclick="playSfx('click'); showGame('ttt')">SOS</button>
 
-        <div id="game-kuis" class="game-screen"><h4 id="no-soal"></h4><p id="tanya-kuis"></p><div id="opsi-kuis"></div><p id="msg-kuis"></p></div>
-        <div id="game-batu" class="game-screen"><h4>Pilih:</h4><button class="menu-btn" onclick="playBatu('✊')">✊</button><button class="menu-btn" onclick="playBatu('✌️')">✌️</button><button class="menu-btn" onclick="playBatu('✋')">✋</button><p id="res-batu"></p></div>
-        <div id="game-ttt" class="game-screen"><p id="ttt-status"></p><div class="ttt-grid" id="ttt-board"></div><button class="menu-btn" onclick="resetTTT()">Reset</button></div>
-        <div id="game-mem" class="game-screen"><div class="mem-grid" id="mem-board"></div><button class="menu-btn" onclick="startMem()">Reset</button></div>
+        <div id="game-kuis" class="game-screen">
+            <p id="tanya-kuis"></p>
+            <div id="opsi-kuis"></div>
+            <p id="msg-kuis"></p>
+        </div>
+
+        <div id="game-batu" class="game-screen">
+            <button class="menu-btn" onclick="playBatu('✊')">✊</button>
+            <button class="menu-btn" onclick="playBatu('✌️')">✌️</button>
+            <button class="menu-btn" onclick="playBatu('✋')">✋</button>
+            <p id="res-batu"></p>
+        </div>
+
+        <div id="game-ttt" class="game-screen">
+            <div class="ttt-grid" id="ttt-board"></div>
+            <p id="ttt-status">Giliran Kamu (X)</p>
+            <button class="menu-btn" onclick="resetTTT()" style="font-size: 0.7em;">Reset</button>
+        </div>
     </div>
 
-    <div class="footer-wrap">
-        <div class="scrolling-text">🚀 WELCOME TO HAKIM OFFICIAL SITE • ENJOY THE GAMES! ✨ BATAM CITY PRIDE 🔥</div>
+    <div class="guest-book">
+        <h4 style="margin:0 0 10px 0;"><i class="fas fa-book"></i> Buku Tamu</h4>
+        <input type="text" id="guestName" class="guest-input" placeholder="Nama kamu...">
+        <input type="text" id="guestMsg" class="guest-input" placeholder="Pesan singkat...">
+        <button class="menu-btn" style="width:100%" onclick="addGuestMessage()">Kirim Pesan</button>
+        <div class="messages-list" id="msgList"></div>
     </div>
+
+    <div style="margin-top: 20px; font-size: 0.7em; opacity: 0.6;">© 2026 Hakim Official • Batam City 🔥</div>
 </div>
 
 <script>
-    // --- 1. LOGIC EKOR KURSOR ---
+    // GREETING
+    function updateGreeting() {
+        const hr = new Date().getHours();
+        let g = hr < 12 ? "Selamat Pagi, Kak! ☀️" : hr < 15 ? "Selamat Siang, Kak! 🌤️" : hr < 18 ? "Selamat Sore, Kak! 🌅" : "Selamat Malam, Kak! 🌙";
+        document.getElementById('greeting-msg').innerText = g;
+    }
+    updateGreeting();
+
+    // VISITS
+    let visits = localStorage.getItem('visitCount') || 0;
+    visits++;
+    localStorage.setItem('visitCount', visits);
+    document.getElementById('visit-count').innerText = visits;
+
+    // SFX & EMOJI
+    function playSfx(type) {
+        try {
+            if(type === 'click') document.getElementById('sfxClick').play();
+            if(type === 'win') {
+                document.getElementById('sfxWin').play();
+                createEmojiRain();
+            }
+        } catch(e) {}
+    }
+
+    function createEmojiRain() {
+        for(let i=0; i<20; i++) {
+            const e = document.createElement('div');
+            e.className = 'confetti';
+            e.innerText = ['🎉','🔥','💎','✨','👏'][Math.floor(Math.random()*5)];
+            e.style.left = Math.random() * 100 + 'vw';
+            e.style.top = '-50px';
+            e.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 3000);
+        }
+    }
+
+    // BUKU TAMU
+    function loadMessages() {
+        const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
+        document.getElementById('msgList').innerHTML = msgs.map(m => `<div class="msg-item"><b>${m.name}:</b> ${m.text}</div>`).reverse().join('');
+    }
+    function addGuestMessage() {
+        const name = document.getElementById('guestName').value;
+        const text = document.getElementById('guestMsg').value;
+        if(name && text) {
+            const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
+            msgs.push({name, text});
+            localStorage.setItem('hakimMsgs', JSON.stringify(msgs));
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestMsg').value = '';
+            loadMessages();
+            playSfx('click');
+        }
+    }
+    loadMessages();
+
+    // KURSOR
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
     });
 
-    // --- 2. LOGIC TEKS OTOMATIS (Typewriter) ---
-    const textTarget = document.getElementById('type-text');
-    const words = ["Status: Online", "Location: Batam City", "Hadroh Player 🥁", "Gamer Sejati 🎮"];
-    let wordIdx = 0; let charIdx = 0; let isDeleting = false;
+    // GAME LOGIC
+    let score = 0;
+    let high = localStorage.getItem('hakimHigh') || 0;
+    document.getElementById('high-score').innerText = high;
 
-    function typeEffect() {
-        const currentWord = words[wordIdx];
-        if (isDeleting) {
-            textTarget.textContent = currentWord.substring(0, charIdx - 1);
-            charIdx--;
-        } else {
-            textTarget.textContent = currentWord.substring(0, charIdx + 1);
-            charIdx++;
+    function addScore(n) {
+        score += n;
+        document.getElementById('score-val').innerText = score;
+        if(score > high) {
+            high = score;
+            localStorage.setItem('hakimHigh', high);
+            document.getElementById('high-score').innerText = high;
         }
-
-        if (!isDeleting && charIdx === currentWord.length) {
-            setTimeout(() => isDeleting = true, 1500);
-        } else if (isDeleting && charIdx === 0) {
-            isDeleting = false;
-            wordIdx = (wordIdx + 1) % words.length;
-        }
-        setTimeout(typeEffect, isDeleting ? 50 : 100);
-    }
-    typeEffect();
-
-    // --- 3. LOGIC SCORE & LOCAL STORAGE ---
-    let globalScore = 0;
-    let bestScore = localStorage.getItem('hakimBest') || 0;
-    document.getElementById('high-score').innerText = bestScore;
-
-    function addScore(n) { 
-        globalScore += n; 
-        document.getElementById('score-val').innerText = globalScore; 
-        if(globalScore > bestScore) {
-            bestScore = globalScore;
-            localStorage.setItem('hakimBest', bestScore);
-            document.getElementById('high-score').innerText = bestScore;
-        }
+        playSfx('win');
     }
 
-    // --- FITUR MUSIK & SALJU ---
-    const music = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-    function toggleMusic() {
-        if (music.paused) { music.play(); musicBtn.classList.add("playing"); musicBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
-        else { music.pause(); musicBtn.classList.remove("playing"); musicBtn.innerHTML = '<i class="fas fa-music"></i>'; }
-    }
-
-    const canvas = document.getElementById('snow-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function initSnow() {
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        for(let i=0; i<80; i++) { particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*3+1, d: Math.random()*1 }); }
-    }
-    function drawSnow() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'white'; ctx.beginPath();
-        for(let i=0; i<particles.length; i++) { let p = particles[i]; ctx.moveTo(p.x, p.y); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true); }
-        ctx.fill(); updateSnow();
-    }
-    function updateSnow() {
-        for(let i=0; i<particles.length; i++) {
-            let p = particles[i]; p.y += 1 + p.r/2;
-            if(p.y > canvas.height) particles[i].y = -10;
-        }
-    }
-    initSnow(); setInterval(drawSnow, 30);
-
-    // --- GAME LOGIC ---
     function showGame(id) {
         document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
         document.getElementById('game-' + id).style.display = 'block';
         if(id === 'kuis') startKuis();
         if(id === 'ttt') resetTTT();
-        if(id === 'mem') startMem();
     }
 
-    const soalHakim = [
-        { q: "Apa hobi utama Hakim?", a: ["Hadroh", "Baca buku", "Tidur"], c: 0 },
-        { q: "Warna favorit Hakim itu apa?", a: ["Putih", "Merah", "Hitam"], c: 1 },
-        { q: "Siapa Club Bola Fav Hakim?", a: ["Barca", "Madrid", "Man Utd"], c: 0 }
+    // KUIS
+    const soal = [
+        {q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0},
+        {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}
     ];
-    let curS = 0;
-    function startKuis() { curS = 0; showSoal(); }
-    function showSoal() {
-        if(curS < soalHakim.length) {
-            let s = soalHakim[curS];
-            document.getElementById('no-soal').innerText = "Soal " + (curS + 1);
+    let cur = 0;
+    function startKuis() { cur=0; nextS(); }
+    function nextS() {
+        if(cur < soal.length) {
+            let s = soal[cur];
             document.getElementById('tanya-kuis').innerText = s.q;
-            let optDiv = document.getElementById('opsi-kuis');
-            optDiv.innerHTML = "";
-            s.a.forEach((o, i) => {
-                let btn = document.createElement('button'); btn.className = "opt-btn"; btn.innerText = o;
-                btn.onclick = () => {
-                    if(i === s.c) { addScore(20); document.getElementById('msg-kuis').innerText = "✅ +20"; }
-                    else { document.getElementById('msg-kuis').innerText = "❌ Salah"; }
-                    setTimeout(() => { curS++; showSoal(); document.getElementById('msg-kuis').innerText = ""; }, 1000);
-                };
-                optDiv.appendChild(btn);
+            let o = document.getElementById('opsi-kuis'); o.innerHTML = "";
+            s.a.forEach((t,i) => {
+                let b = document.createElement('button'); b.className="opt-btn"; b.innerText=t;
+                b.onclick = () => { if(i==s.c){addScore(20);}; cur++; nextS(); };
+                o.appendChild(b);
             });
-        } else { document.getElementById('tanya-kuis').innerText = "Kuis Selesai!"; document.getElementById('opsi-kuis').innerHTML = ""; }
+        } else { document.getElementById('tanya-kuis').innerText="Selesai!"; document.getElementById('opsi-kuis').innerHTML=""; }
     }
 
+    // SOS
+    let board = Array(9).fill('');
+    function resetTTT() {
+        board = Array(9).fill('');
+        const g = document.getElementById('ttt-board'); g.innerHTML = '';
+        for(let i=0; i<9; i++) {
+            let c = document.createElement('div'); c.className='ttt-cell';
+            c.onclick = () => { if(!board[i]){ board[i]='X'; c.innerText='X'; if(check(board,'X')){addScore(50); document.getElementById('ttt-status').innerText="MENANG!";}else{setTimeout(comp,400);} } };
+            g.appendChild(c);
+        }
+        document.getElementById('ttt-status').innerText="Giliran Kamu (X)";
+    }
+    function comp() {
+        let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null);
+        if(a.length) { let m = a[Math.floor(Math.random()*a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; }
+    }
+    function check(b, p) {
+        const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        return w.some(s => s.every(i => b[i] === p));
+    }
+
+    // BATU GUNTING
     function playBatu(u) {
         const p = ['✊','✌️','✋']; const c = p[Math.floor(Math.random()*3)];
-        let r = (u==c) ? "Seri!" : ((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊')) ? "Menang! +10" : "Kalah!";
+        let r = u==c ? "Seri!" : (u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊') ? "Menang! +10" : "Kalah!";
         if(r.includes("Menang")) addScore(10);
         document.getElementById('res-batu').innerText = `Komp: ${c} | ${r}`;
     }
 
-    let tttBoard = Array(9).fill('');
-    let isGameActive = true;
-    function resetTTT() {
-        tttBoard = Array(9).fill(''); isGameActive = true;
-        document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
-        const grid = document.getElementById('ttt-board'); grid.innerHTML = "";
-        for(let i=0; i<9; i++) {
-            let cell = document.createElement('div'); cell.className = "ttt-cell"; cell.id = "ttt-"+i;
-            cell.onclick = () => playerMove(i); grid.appendChild(cell);
-        }
-    }
-    function playerMove(i) {
-        if(!tttBoard[i] && isGameActive) {
-            tttBoard[i] = 'X'; document.getElementById("ttt-"+i).innerText = 'X';
-            if(checkWin('X')) { document.getElementById('ttt-status').innerText = "MENANG! +50"; addScore(50); isGameActive = false; }
-            else if(tttBoard.every(cell => cell !== '')) { document.getElementById('ttt-status').innerText = "Seri!"; isGameActive = false; }
-            else { isGameActive = false; setTimeout(computerMove, 500); }
-        }
-    }
-    function computerMove() {
-        let avail = tttBoard.map((v,i) => v==='' ? i : null).filter(v => v!==null);
-        if(avail.length > 0) {
-            let move = avail[Math.floor(Math.random()*avail.length)];
-            tttBoard[move] = 'O'; document.getElementById("ttt-"+move).innerText = 'O';
-            if(checkWin('O')) document.getElementById('ttt-status').innerText = "Kalah!";
-            else isGameActive = true;
-        }
-    }
-    function checkWin(p) {
-        const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-        return winPatterns.some(pattern => pattern.every(index => tttBoard[index] === p));
+    // MUSIK
+    const m = document.getElementById("bgMusic");
+    function toggleMusic() {
+        if (m.paused) { m.play(); document.getElementById('musicBtn').style.background = '#e74c3c'; }
+        else { m.pause(); document.getElementById('musicBtn').style.background = '#2ecc71'; }
     }
 
-    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
-    let flipped = [];
-    function startMem() {
-        icons.sort(() => Math.random() - 0.5);
-        let mBoard = document.getElementById('mem-board'); mBoard.innerHTML = "";
-        icons.forEach((icon, idx) => {
-            let card = document.createElement('div'); card.className = "card"; card.id = "card-"+idx;
-            card.innerText = icon; card.onclick = () => flipCard(idx); mBoard.appendChild(card);
-        });
-    }
-    function flipCard(idx) {
-        let card = document.getElementById('card-'+idx);
-        if(card.classList.contains('flipped') || flipped.length === 2) return;
-        card.classList.add('flipped'); flipped.push({icon: icons[idx], idx: idx});
-        if(flipped.length === 2) {
-            if(flipped[0].icon === flipped[1].icon) { addScore(30); flipped = []; }
-            else { setTimeout(() => { 
-                document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
-                document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
-                flipped = [];
-            }, 700); }
-        }
-    }
+    // SALJU
+    const cv = document.getElementById('snow-canvas');
+    const cx = cv.getContext('2d');
+    let p = [];
+    function init() { cv.width = window.innerWidth; cv.height = window.innerHeight; for(let i=0; i<50; i++) p.push({x:Math.random()*cv.width, y:Math.random()*cv.height, r:Math.random()*3+1}); }
+    function draw() { cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='white'; cx.beginPath(); p.forEach(s => { cx.moveTo(s.x, s.y); cx.arc(s.x, s.y, s.r, 0, Math.PI*2); s.y += 1; if(s.y>cv.height) s.y=-10; }); cx.fill(); requestAnimationFrame(draw); }
+    init(); draw();
 </script>
-
 </body>
 </html>
