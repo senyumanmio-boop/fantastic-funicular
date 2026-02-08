@@ -6,19 +6,11 @@
     <title>TENTANG HAKIM | OFFICIAL SITE</title>
     
     <meta name="description" content="Website Resmi Hakim - Hakim Arcade Center">
-    
     <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* ANIMASI BACKGROUND BERGERAK */
-        @keyframes bgZoom {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         body {
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
@@ -33,18 +25,24 @@
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
+            /* 1. Kursor disembunyikan untuk efek ekor */
+            cursor: none; 
         }
 
-        /* KANVAS UNTUK ANIMASI SALJU */
-        #snow-canvas {
+        /* STYLE EFEK KURSOR */
+        .cursor-follower {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 10px;
+            height: 10px;
+            background: #2ecc71;
+            border-radius: 50%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 9999;
+            box-shadow: 0 0 15px #2ecc71, 0 0 30px #2ecc71;
+            transition: transform 0.1s ease-out;
         }
+
+        #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
         .container {
             background: rgba(0, 0, 0, 0.8);
@@ -56,51 +54,33 @@
             max-width: 480px;
             width: 100%;
             position: relative;
-            z-index: 2; /* Di atas salju */
+            z-index: 2;
         }
 
-        h1 {
-            color: #2ecc71;
-            text-shadow: 0 0 10px #2ecc71;
-            margin-bottom: 5px;
+        h1 { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; margin-bottom: 5px; }
+        
+        /* STYLE TEKS OTOMATIS */
+        .typing-container {
+            height: 25px;
+            color: #f1c40f;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 150px; height: 150px;
             border-radius: 50%;
             border: 4px solid #2ecc71;
             object-fit: cover;
-            margin-top: 10px;
             box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
             transition: 0.5s;
         }
-        
         .profile-img:hover { transform: rotate(360deg) scale(1.1); }
 
-        .btn-container {
-            margin: 20px 0;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn-sm {
-            padding: 10px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            font-size: 0.85em;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .btn-container { margin: 20px 0; display: flex; gap: 15px; justify-content: center; }
+        .btn-sm { padding: 10px 20px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; font-size: 0.85em; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
         .tt { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .tt:hover { box-shadow: 3px 0 10px #ee1d52, -3px 0 10px #69c9d0; }
         .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
         .game-hub {
@@ -111,88 +91,42 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .menu-btn {
-            background: #3498db; 
-            color: white;
-            border: none;
-            padding: 10px 14px;
-            margin: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.8em;
-            transition: 0.2s;
-            box-shadow: 0 4px 0 #2980b9;
+        /* STYLE HIGH SCORE BOARD */
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(46, 204, 113, 0.2);
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 15px;
         }
 
+        .menu-btn { background: #3498db; color: white; border: none; padding: 10px 14px; margin: 5px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.8em; transition: 0.2s; box-shadow: 0 4px 0 #2980b9; }
         .menu-btn:active { transform: translateY(3px); box-shadow: none; }
 
-        /* TOMBOL MUSIK FLOATING */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .music-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #2ecc71;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
-            transition: 0.3s;
-        }
-        
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .music-btn { width: 50px; height: 50px; border-radius: 50%; background: #2ecc71; border: none; color: white; font-size: 20px; cursor: pointer; }
         .music-btn.playing { animation: pulseMusic 1.5s infinite; background: #e74c3c; }
 
-        @keyframes pulseMusic {
-            0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(231, 76, 60, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-            100% { transform: scale(1); }
-        }
+        @keyframes pulseMusic { 0% { transform: scale(1); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        /* FOOTER */
-        .footer-wrap {
-            margin-top: 25px;
-            width: 100%;
-            overflow: hidden;
-            background: rgba(46, 204, 113, 0.1);
-            border-radius: 50px;
-            padding: 12px 0;
-            border: 1px solid rgba(46, 204, 113, 0.3);
-        }
+        .footer-wrap { margin-top: 25px; overflow: hidden; background: rgba(46, 204, 113, 0.1); border-radius: 50px; padding: 12px 0; border: 1px solid rgba(46, 204, 113, 0.3); }
+        .scrolling-text { display: inline-block; white-space: nowrap; font-weight: bold; font-size: 0.85em; color: #2ecc71; animation: scroll-left 15s linear infinite; }
+        @keyframes scroll-left { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-        .scrolling-text {
-            display: inline-block;
-            white-space: nowrap;
-            font-weight: bold;
-            font-size: 0.85em;
-            color: #2ecc71;
-            animation: scroll-left 15s linear infinite;
-        }
-
-        @keyframes scroll-left {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        /* GAME SCREENS */
         .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
         .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
-        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; color: #fff; }
+        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; }
         .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
-        .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
-        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
+        .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; }
+        .card.flipped { color: white; background: #e67e22; }
         .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
+
+<div class="cursor-follower" id="cursor"></div>
 
 <canvas id="snow-canvas"></canvas>
 
@@ -208,127 +142,117 @@
 
 <div class="container">
     <h1>✨SELAMAT DATANG✨</h1>
-    <p>Status: Online | Location: Batam City</p>
+    
+    <div class="typing-container" id="type-text"></div>
     
     <img src="foto.jpg" alt="Hakim" class="profile-img">
     
     <div class="btn-container">
-        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">
-            <i class="fab fa-instagram"></i> INSTAGRAM
-        </a>
-        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank">
-            <i class="fab fa-tiktok"></i> TIKTOK
-        </a>
+        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TIKTOK</a>
     </div>
 
     <div class="game-hub">
-        <h3 style="margin-top:0;">🎮 HAKIM ARCADE CENTER</h3>
-        <p>Skor Anda: <span id="score-val" style="color:#f1c40f; font-weight:bold;">0</span></p>
+        <h3 style="margin-top:0;">🎮 HAKIM ARCADE</h3>
+        
+        <div class="score-board">
+            <div>Score: <span id="score-val" style="color:#f1c40f;">0</span></div>
+            <div>Best: <span id="high-score" style="color:#2ecc71;">0</span></div>
+        </div>
         
         <button class="menu-btn" onclick="showGame('kuis')">Kuis Hakim</button>
         <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS (vs PC)</button>
-        <button class="menu-btn" onclick="showGame('mem')">Memori Kartu</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
+        <button class="menu-btn" onclick="showGame('mem')">Memori</button>
 
-        <div id="game-kuis" class="game-screen">
-            <h4 id="no-soal">Soal 1</h4>
-            <p id="tanya-kuis"></p>
-            <div id="opsi-kuis"></div>
-            <p id="msg-kuis"></p>
-        </div>
-
-        <div id="game-batu" class="game-screen">
-            <h4>Pilih Senjata:</h4>
-            <button class="menu-btn" onclick="playBatu('✊')">✊ Batu</button>
-            <button class="menu-btn" onclick="playBatu('✌️')">✌️ Gunting</button>
-            <button class="menu-btn" onclick="playBatu('✋')">✋ Kertas</button>
-            <p id="res-batu" style="font-weight:bold; margin-top:10px;"></p>
-        </div>
-
-        <div id="game-ttt" class="game-screen">
-            <p id="ttt-status">Giliran Kamu (X)</p>
-            <div class="ttt-grid" id="ttt-board"></div>
-            <button class="menu-btn" onclick="resetTTT()" style="background:#e74c3c;">Reset Board</button>
-        </div>
-
-        <div id="game-mem" class="game-screen">
-            <h4>Cari Pasangan Gambar</h4>
-            <div class="mem-grid" id="mem-board"></div>
-            <button class="menu-btn" onclick="startMem()" style="background:#e74c3c;">Reset Kartu</button>
-        </div>
+        <div id="game-kuis" class="game-screen"><h4 id="no-soal"></h4><p id="tanya-kuis"></p><div id="opsi-kuis"></div><p id="msg-kuis"></p></div>
+        <div id="game-batu" class="game-screen"><h4>Pilih:</h4><button class="menu-btn" onclick="playBatu('✊')">✊</button><button class="menu-btn" onclick="playBatu('✌️')">✌️</button><button class="menu-btn" onclick="playBatu('✋')">✋</button><p id="res-batu"></p></div>
+        <div id="game-ttt" class="game-screen"><p id="ttt-status"></p><div class="ttt-grid" id="ttt-board"></div><button class="menu-btn" onclick="resetTTT()">Reset</button></div>
+        <div id="game-mem" class="game-screen"><div class="mem-grid" id="mem-board"></div><button class="menu-btn" onclick="startMem()">Reset</button></div>
     </div>
 
     <div class="footer-wrap">
-        <div class="scrolling-text">
-            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ HAKIM OFFICIAL 🔥
-        </div>
+        <div class="scrolling-text">🚀 WELCOME TO HAKIM OFFICIAL SITE • ENJOY THE GAMES! ✨ BATAM CITY PRIDE 🔥</div>
     </div>
 </div>
 
 <script>
-    // --- FITUR MUSIK ---
-    const music = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-    function toggleMusic() {
-        if (music.paused) {
-            music.play();
-            musicBtn.classList.add("playing");
-            musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    // --- 1. LOGIC EKOR KURSOR ---
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // --- 2. LOGIC TEKS OTOMATIS (Typewriter) ---
+    const textTarget = document.getElementById('type-text');
+    const words = ["Status: Online", "Location: Batam City", "Hadroh Player 🥁", "Gamer Sejati 🎮"];
+    let wordIdx = 0; let charIdx = 0; let isDeleting = false;
+
+    function typeEffect() {
+        const currentWord = words[wordIdx];
+        if (isDeleting) {
+            textTarget.textContent = currentWord.substring(0, charIdx - 1);
+            charIdx--;
         } else {
-            music.pause();
-            musicBtn.classList.remove("playing");
-            musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            textTarget.textContent = currentWord.substring(0, charIdx + 1);
+            charIdx++;
+        }
+
+        if (!isDeleting && charIdx === currentWord.length) {
+            setTimeout(() => isDeleting = true, 1500);
+        } else if (isDeleting && charIdx === 0) {
+            isDeleting = false;
+            wordIdx = (wordIdx + 1) % words.length;
+        }
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+    }
+    typeEffect();
+
+    // --- 3. LOGIC SCORE & LOCAL STORAGE ---
+    let globalScore = 0;
+    let bestScore = localStorage.getItem('hakimBest') || 0;
+    document.getElementById('high-score').innerText = bestScore;
+
+    function addScore(n) { 
+        globalScore += n; 
+        document.getElementById('score-val').innerText = globalScore; 
+        if(globalScore > bestScore) {
+            bestScore = globalScore;
+            localStorage.setItem('hakimBest', bestScore);
+            document.getElementById('high-score').innerText = bestScore;
         }
     }
 
-    // --- ANIMASI SALJU ---
+    // --- FITUR MUSIK & SALJU ---
+    const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    function toggleMusic() {
+        if (music.paused) { music.play(); musicBtn.classList.add("playing"); musicBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+        else { music.pause(); musicBtn.classList.remove("playing"); musicBtn.innerHTML = '<i class="fas fa-music"></i>'; }
+    }
+
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     function initSnow() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        for(let i=0; i<100; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 4 + 1,
-                d: Math.random() * 1
-            });
-        }
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        for(let i=0; i<80; i++) { particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*3+1, d: Math.random()*1 }); }
     }
     function drawSnow() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'white';
-        ctx.beginPath();
-        for(let i=0; i<particles.length; i++) {
-            let p = particles[i];
-            ctx.moveTo(p.x, p.y);
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-        }
-        ctx.fill();
-        updateSnow();
+        ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = 'white'; ctx.beginPath();
+        for(let i=0; i<particles.length; i++) { let p = particles[i]; ctx.moveTo(p.x, p.y); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true); }
+        ctx.fill(); updateSnow();
     }
     function updateSnow() {
         for(let i=0; i<particles.length; i++) {
-            let p = particles[i];
-            p.y += Math.cos(p.d) + 1 + p.r/2;
-            p.x += Math.sin(0) * 2;
-            if(p.y > canvas.height) {
-                particles[i] = { x: Math.random()*canvas.width, y: -10, r: p.r, d: p.d };
-            }
+            let p = particles[i]; p.y += 1 + p.r/2;
+            if(p.y > canvas.height) particles[i].y = -10;
         }
     }
-    initSnow();
-    setInterval(drawSnow, 30);
+    initSnow(); setInterval(drawSnow, 30);
 
-    // --- LOGIC GAME (DATA DARI KAMU) ---
-    let globalScore = 0;
-    function addScore(n) { 
-        globalScore += n; 
-        document.getElementById('score-val').innerText = globalScore; 
-    }
-
+    // --- GAME LOGIC ---
     function showGame(id) {
         document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
         document.getElementById('game-' + id).style.display = 'block';
@@ -340,8 +264,6 @@
     const soalHakim = [
         { q: "Apa hobi utama Hakim?", a: ["Hadroh", "Baca buku", "Tidur"], c: 0 },
         { q: "Warna favorit Hakim itu apa?", a: ["Putih", "Merah", "Hitam"], c: 1 },
-        { q: "Apa cita-cita Hakim?", a: ["Pengusaha", "Pilot", "Hakim Pengadilan"], c: 0 },
-        { q: "Gimana karakter Hakim?", a: ["Asik & Santai", "Pendiam", "Marah"], c: 0 },
         { q: "Siapa Club Bola Fav Hakim?", a: ["Barca", "Madrid", "Man Utd"], c: 0 }
     ];
     let curS = 0;
@@ -349,80 +271,55 @@
     function showSoal() {
         if(curS < soalHakim.length) {
             let s = soalHakim[curS];
-            document.getElementById('no-soal').innerText = "Pertanyaan " + (curS + 1);
+            document.getElementById('no-soal').innerText = "Soal " + (curS + 1);
             document.getElementById('tanya-kuis').innerText = s.q;
             let optDiv = document.getElementById('opsi-kuis');
             optDiv.innerHTML = "";
             s.a.forEach((o, i) => {
-                let btn = document.createElement('button');
-                btn.className = "opt-btn"; btn.innerText = o;
+                let btn = document.createElement('button'); btn.className = "opt-btn"; btn.innerText = o;
                 btn.onclick = () => {
-                    if(i === s.c) { addScore(20); document.getElementById('msg-kuis').innerText = "✅ Benar! +20"; }
-                    else { document.getElementById('msg-kuis').innerText = "❌ Salah!"; }
+                    if(i === s.c) { addScore(20); document.getElementById('msg-kuis').innerText = "✅ +20"; }
+                    else { document.getElementById('msg-kuis').innerText = "❌ Salah"; }
                     setTimeout(() => { curS++; showSoal(); document.getElementById('msg-kuis').innerText = ""; }, 1000);
                 };
                 optDiv.appendChild(btn);
             });
-        } else {
-            document.getElementById('tanya-kuis').innerText = "Kuis Selesai!";
-            document.getElementById('opsi-kuis').innerHTML = "";
-        }
+        } else { document.getElementById('tanya-kuis').innerText = "Kuis Selesai!"; document.getElementById('opsi-kuis').innerHTML = ""; }
     }
 
     function playBatu(u) {
         const p = ['✊','✌️','✋']; const c = p[Math.floor(Math.random()*3)];
         let r = (u==c) ? "Seri!" : ((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊')) ? "Menang! +10" : "Kalah!";
         if(r.includes("Menang")) addScore(10);
-        document.getElementById('res-batu').innerText = `Komp: ${c} | Hasil: ${r}`;
+        document.getElementById('res-batu').innerText = `Komp: ${c} | ${r}`;
     }
 
     let tttBoard = Array(9).fill('');
     let isGameActive = true;
     function resetTTT() {
-        tttBoard = Array(9).fill('');
-        isGameActive = true;
+        tttBoard = Array(9).fill(''); isGameActive = true;
         document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
-        const grid = document.getElementById('ttt-board');
-        grid.innerHTML = "";
+        const grid = document.getElementById('ttt-board'); grid.innerHTML = "";
         for(let i=0; i<9; i++) {
-            let cell = document.createElement('div');
-            cell.className = "ttt-cell";
-            cell.id = "ttt-"+i;
-            cell.onclick = () => playerMove(i);
-            grid.appendChild(cell);
+            let cell = document.createElement('div'); cell.className = "ttt-cell"; cell.id = "ttt-"+i;
+            cell.onclick = () => playerMove(i); grid.appendChild(cell);
         }
     }
     function playerMove(i) {
         if(!tttBoard[i] && isGameActive) {
-            tttBoard[i] = 'X';
-            document.getElementById("ttt-"+i).innerText = 'X';
-            if(checkWin('X')) {
-                document.getElementById('ttt-status').innerText = "KAMU MENANG! 🎉";
-                addScore(50);
-                isGameActive = false;
-            } else if(tttBoard.every(cell => cell !== '')) {
-                document.getElementById('ttt-status').innerText = "Seri! 🤝";
-                isGameActive = false;
-            } else {
-                isGameActive = false;
-                document.getElementById('ttt-status').innerText = "Komputer mikir...";
-                setTimeout(computerMove, 600);
-            }
+            tttBoard[i] = 'X'; document.getElementById("ttt-"+i).innerText = 'X';
+            if(checkWin('X')) { document.getElementById('ttt-status').innerText = "MENANG! +50"; addScore(50); isGameActive = false; }
+            else if(tttBoard.every(cell => cell !== '')) { document.getElementById('ttt-status').innerText = "Seri!"; isGameActive = false; }
+            else { isGameActive = false; setTimeout(computerMove, 500); }
         }
     }
     function computerMove() {
-        if(!isGameActive && tttBoard.some(c => c === '')) {
-            let available = tttBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
-            let move = available[Math.floor(Math.random() * available.length)];
-            tttBoard[move] = 'O';
-            document.getElementById("ttt-"+move).innerText = 'O';
-            document.getElementById("ttt-"+move).style.color = "#e74c3c";
-            if(checkWin('O')) {
-                document.getElementById('ttt-status').innerText = "Komputer Menang! 🤖";
-            } else {
-                document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
-                isGameActive = true;
-            }
+        let avail = tttBoard.map((v,i) => v==='' ? i : null).filter(v => v!==null);
+        if(avail.length > 0) {
+            let move = avail[Math.floor(Math.random()*avail.length)];
+            tttBoard[move] = 'O'; document.getElementById("ttt-"+move).innerText = 'O';
+            if(checkWin('O')) document.getElementById('ttt-status').innerText = "Kalah!";
+            else isGameActive = true;
         }
     }
     function checkWin(p) {
@@ -432,38 +329,25 @@
 
     let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
     let flipped = [];
-    let lockBoard = false;
     function startMem() {
         icons.sort(() => Math.random() - 0.5);
-        let mBoard = document.getElementById('mem-board');
-        mBoard.innerHTML = "";
+        let mBoard = document.getElementById('mem-board'); mBoard.innerHTML = "";
         icons.forEach((icon, idx) => {
-            let card = document.createElement('div');
-            card.className = "card"; card.id = "card-"+idx;
-            card.innerText = icon;
-            card.onclick = () => flipCard(idx);
-            mBoard.appendChild(card);
+            let card = document.createElement('div'); card.className = "card"; card.id = "card-"+idx;
+            card.innerText = icon; card.onclick = () => flipCard(idx); mBoard.appendChild(card);
         });
     }
     function flipCard(idx) {
         let card = document.getElementById('card-'+idx);
-        if(lockBoard || card.classList.contains('flipped')) return;
-        card.classList.add('flipped');
-        flipped.push({ icon: icons[idx], idx: idx });
+        if(card.classList.contains('flipped') || flipped.length === 2) return;
+        card.classList.add('flipped'); flipped.push({icon: icons[idx], idx: idx});
         if(flipped.length === 2) {
-            lockBoard = true;
-            if(flipped[0].icon === flipped[1].icon) {
-                addScore(30);
+            if(flipped[0].icon === flipped[1].icon) { addScore(30); flipped = []; }
+            else { setTimeout(() => { 
+                document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
+                document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
                 flipped = [];
-                lockBoard = false;
-            } else {
-                setTimeout(() => {
-                    document.getElementById('card-'+flipped[0].idx).classList.remove('flipped');
-                    document.getElementById('card-'+flipped[1].idx).classList.remove('flipped');
-                    flipped = [];
-                    lockBoard = false;
-                }, 800);
-            }
+            }, 700); }
         }
     }
 </script>
