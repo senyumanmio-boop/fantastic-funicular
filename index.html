@@ -18,14 +18,9 @@
             text-align: center; margin: 0; padding: 20px;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover; color: white; overflow-x: hidden; cursor: none; 
-        }
-
-        .cursor-follower {
-            position: fixed; width: 12px; height: 12px;
-            background: #2ecc71; border-radius: 50%;
-            pointer-events: none; z-index: 9999;
-            box-shadow: 0 0 15px #2ecc71; transition: transform 0.1s ease-out;
+            background-size: cover; color: white; overflow-x: hidden;
+            /* Kursor kembali normal */
+            cursor: auto; 
         }
 
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
@@ -36,7 +31,6 @@
             max-width: 500px; margin: auto; position: relative; z-index: 2;
         }
 
-        /* TULISAN MENGETIK DI ATAS PROFIL */
         .typing-box { height: 25px; color: #f1c40f; font-weight: bold; margin-bottom: 10px; font-size: 1.1em; text-shadow: 0 0 5px #f1c40f; }
 
         .profile-img {
@@ -73,7 +67,6 @@
 
         .game-screen { display: none; margin-top: 15px; border-top: 1px dashed #2ecc71; padding-top: 10px; }
 
-        /* MEMORY GAME STYLE */
         .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
         .card { width: 50px; height: 50px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
         .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
@@ -82,37 +75,17 @@
         .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
         .opt-btn { display: block; width: 100%; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #3498db; color: white; border-radius: 8px; cursor: pointer; }
 
-        .guest-book {
-            margin-top: 20px; text-align: left; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .guest-input { width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box; background: rgba(255,255,255,0.9); }
-        .messages-list { height: 100px; overflow-y: auto; font-size: 0.85em; border-top: 1px solid #333; padding-top: 10px; }
-        .msg-item { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; margin-bottom: 5px; }
-
         .confetti { position: fixed; font-size: 25px; pointer-events: none; z-index: 999; animation: fall 3s linear forwards; }
         @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
-
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .music-btn { width: 45px; height: 45px; border-radius: 50%; background: #2ecc71; border: none; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="cursor-follower" id="cursor"></div>
 <canvas id="snow-canvas"></canvas>
-
-<audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg"></audio>
-<audio id="sfxClick"><source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg"></audio>
-<audio id="sfxWin"><source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg"></audio>
-
-<div class="music-control">
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()"><i class="fas fa-music"></i></button>
-</div>
 
 <div class="container">
     <div id="greeting-msg" class="greeting">Memuat...</div>
-    <div class="stats-info">👁️ Total Kunjungan: <span id="visit-count">0</span></div>
+    <div class="stats-info">👁️ Kunjungan Anda: <span id="visit-count">0</span></div>
     
     <div class="typing-box" id="typing-text"></div>
 
@@ -129,10 +102,10 @@
             <div>Terbaik: <span id="high-score">0</span></div>
         </div>
         
-        <button class="menu-btn" onclick="playSfx('click'); showGame('kuis')">Kuis</button>
-        <button class="menu-btn" onclick="playSfx('click'); showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="playSfx('click'); showGame('ttt')">SOS</button>
-        <button class="menu-btn" onclick="playSfx('click'); showGame('mem')">Tebak Gambar</button>
+        <button class="menu-btn" onclick="showGame('kuis')">Kuis</button>
+        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
+        <button class="menu-btn" onclick="showGame('mem')">Tebak Gambar</button>
 
         <div id="game-kuis" class="game-screen">
             <p id="tanya-kuis"></p>
@@ -159,19 +132,11 @@
         </div>
     </div>
 
-    <div class="guest-book">
-        <h4 style="margin:0 0 10px 0;"><i class="fas fa-book"></i> Buku Tamu</h4>
-        <input type="text" id="guestName" class="guest-input" placeholder="Nama kamu...">
-        <input type="text" id="guestMsg" class="guest-input" placeholder="Pesan singkat...">
-        <button class="menu-btn" style="width:100%" onclick="addGuestMessage()">Kirim Pesan</button>
-        <div class="messages-list" id="msgList"></div>
-    </div>
-
     <div style="margin-top: 20px; font-size: 0.7em; opacity: 0.6;">© 2026 Hakim Official • Batam City 🔥</div>
 </div>
 
 <script>
-    // 1. TULISAN MENGETIK (TYPEWRITER)
+    // 1. TYPEWRITER
     const words = ["Status: Online", "Location: Batam City", "Gamer Sejati 🎮", "Pemain Hadroh 🥁"];
     let i = 0, j = 0, curr = "", isDel = false;
     function type() {
@@ -195,13 +160,7 @@
     localStorage.setItem('visitCount', visits);
     document.getElementById('visit-count').innerText = visits;
 
-    // 3. SFX & EMOJI
-    function playSfx(type) {
-        try {
-            if(type === 'click') document.getElementById('sfxClick').play();
-            if(type === 'win') { document.getElementById('sfxWin').play(); createEmojiRain(); }
-        } catch(e) {}
-    }
+    // 3. EMOJI RAIN
     function createEmojiRain() {
         for(let i=0; i<20; i++) {
             const e = document.createElement('div');
@@ -221,7 +180,7 @@
     function addScore(n) {
         score += n; document.getElementById('score-val').innerText = score;
         if(score > high) { high = score; localStorage.setItem('hakimHigh', high); document.getElementById('high-score').innerText = high; }
-        playSfx('win');
+        createEmojiRain();
     }
     function showGame(id) {
         document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
@@ -268,7 +227,7 @@
         }
     }
 
-    // SOS & BATU (SIMPLE)
+    // SOS & BATU
     let board = Array(9).fill('');
     function resetTTT() {
         board = Array(9).fill(''); const g = document.getElementById('ttt-board'); g.innerHTML = '';
@@ -279,29 +238,11 @@
         }
         document.getElementById('ttt-status').innerText="Giliran Kamu (X)";
     }
-    function comp() { let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null); if(a.length) { let m = a[Math.floor(Math.random()*a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; } }
+    function comp() { let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null); if(a.length) { let m = a[Math.floor(Math.random()*3 % a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; } }
     function check(b, p) { const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return w.some(s => s.every(i => b[i] === p)); }
     function playBatu(u) { const p=['✊','✌️','✋'], c=p[Math.floor(Math.random()*3)]; let r=u==c?"Seri!":((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊'))?"Menang! +10":"Kalah!"; if(r.includes("Menang")) addScore(10); document.getElementById('res-batu').innerText=`Komp: ${c} | ${r}`; }
 
-    // BUKU TAMU
-    function loadMessages() {
-        const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
-        document.getElementById('msgList').innerHTML = msgs.map(m => `<div class="msg-item"><b>${m.name}:</b> ${m.text}</div>`).reverse().join('');
-    }
-    function addGuestMessage() {
-        const name = document.getElementById('guestName').value, text = document.getElementById('guestMsg').value;
-        if(name && text) {
-            const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || []; msgs.push({name, text});
-            localStorage.setItem('hakimMsgs', JSON.stringify(msgs));
-            document.getElementById('guestName').value = ''; document.getElementById('guestMsg').value = '';
-            loadMessages(); playSfx('click');
-        }
-    }
-    loadMessages();
-
-    // KURSOR & MUSIK & SALJU
-    const cursor = document.getElementById('cursor'); document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
-    const m = document.getElementById("bgMusic"); function toggleMusic() { if (m.paused) { m.play(); document.getElementById('musicBtn').style.background = '#e74c3c'; } else { m.pause(); document.getElementById('musicBtn').style.background = '#2ecc71'; } }
+    // SALJU
     const cv = document.getElementById('snow-canvas'), cx = cv.getContext('2d'); let slj = [];
     function init() { cv.width = window.innerWidth; cv.height = window.innerHeight; for(let i=0; i<50; i++) slj.push({x:Math.random()*cv.width, y:Math.random()*cv.height, r:Math.random()*3+1}); }
     function draw() { cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='white'; cx.beginPath(); slj.forEach(s => { cx.moveTo(s.x, s.y); cx.arc(s.x, s.y, s.r, 0, Math.PI*2); s.y += 1; if(s.y>cv.height) s.y=-10; }); cx.fill(); requestAnimationFrame(draw); }
