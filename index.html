@@ -12,19 +12,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* ANIMASI BACKGROUND BERGERAK */
+        @keyframes bgZoom {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
         body {
             font-family: 'Segoe UI', sans-serif;
             text-align: center;
             margin: 0;
             padding: 20px;
-            background: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             color: white;
+            overflow-x: hidden;
         }
+
+        /* KANVAS UNTUK ANIMASI SALJU */
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .container {
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(12px);
@@ -34,12 +55,16 @@
             box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
             max-width: 480px;
             width: 100%;
+            position: relative;
+            z-index: 2; /* Di atas salju */
         }
+
         h1 {
             color: #2ecc71;
             text-shadow: 0 0 10px #2ecc71;
             margin-bottom: 5px;
         }
+
         .profile-img {
             width: 150px;
             height: 150px;
@@ -48,13 +73,18 @@
             object-fit: cover;
             margin-top: 10px;
             box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+            transition: 0.5s;
         }
+        
+        .profile-img:hover { transform: rotate(360deg) scale(1.1); }
+
         .btn-container {
             margin: 20px 0;
             display: flex;
             gap: 15px;
             justify-content: center;
         }
+
         .btn-sm {
             padding: 10px 20px;
             border-radius: 12px;
@@ -67,18 +97,10 @@
             align-items: center;
             gap: 8px;
         }
-        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        
-        /* STYLE TIKTOK DENGAN EFEK GLOW */
-        .tt { 
-            background: #000000; 
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .tt:hover {
-            transform: translateY(-3px);
-            box-shadow: 3px 0 10px #ee1d52, -3px 0 10px #69c9d0;
-        }
 
+        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+        .tt { background: #000; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .tt:hover { box-shadow: 3px 0 10px #ee1d52, -3px 0 10px #69c9d0; }
         .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
         .game-hub {
@@ -88,7 +110,7 @@
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
         }
-        
+
         .menu-btn {
             background: #3498db; 
             color: white;
@@ -102,22 +124,39 @@
             transition: 0.2s;
             box-shadow: 0 4px 0 #2980b9;
         }
+
         .menu-btn:active { transform: translateY(3px); box-shadow: none; }
-        .menu-btn:hover { background: #2980b9; }
 
-        .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        /* TOMBOL MUSIK FLOATING */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #2ecc71;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+            transition: 0.3s;
+        }
+        
+        .music-btn.playing { animation: pulseMusic 1.5s infinite; background: #e74c3c; }
 
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
-        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; color: #fff; font-weight: bold; }
+        @keyframes pulseMusic {
+            0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(231, 76, 60, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { transform: scale(1); }
+        }
 
-        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
-        .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
-        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
-
-        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
-        .opt-btn:hover { background: #3498db; }
-
+        /* FOOTER */
         .footer-wrap {
             margin-top: 25px;
             width: 100%;
@@ -126,25 +165,46 @@
             border-radius: 50px;
             padding: 12px 0;
             border: 1px solid rgba(46, 204, 113, 0.3);
-            position: relative;
         }
+
         .scrolling-text {
             display: inline-block;
             white-space: nowrap;
             font-weight: bold;
             font-size: 0.85em;
             color: #2ecc71;
-            text-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
             animation: scroll-left 15s linear infinite;
         }
+
         @keyframes scroll-left {
             from { transform: translateX(100%); }
             to { transform: translateX(-100%); }
         }
-        .footer-wrap:hover .scrolling-text { animation-play-state: paused; color: #fff; }
+
+        /* GAME SCREENS */
+        .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
+        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; color: #fff; }
+        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
+        .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
+        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
+        .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
+
+<canvas id="snow-canvas"></canvas>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-control">
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+</div>
 
 <div class="container">
     <h1>✨SELAMAT DATANG✨</h1>
@@ -167,7 +227,7 @@
         
         <button class="menu-btn" onclick="showGame('kuis')">Kuis Hakim</button>
         <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS (vs Komputer)</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS (vs PC)</button>
         <button class="menu-btn" onclick="showGame('mem')">Memori Kartu</button>
 
         <div id="game-kuis" class="game-screen">
@@ -188,24 +248,81 @@
         <div id="game-ttt" class="game-screen">
             <p id="ttt-status">Giliran Kamu (X)</p>
             <div class="ttt-grid" id="ttt-board"></div>
-            <button class="menu-btn" onclick="resetTTT()" style="background:#e74c3c; box-shadow: 0 4px 0 #c0392b;">Reset Board</button>
+            <button class="menu-btn" onclick="resetTTT()" style="background:#e74c3c;">Reset Board</button>
         </div>
 
         <div id="game-mem" class="game-screen">
             <h4>Cari Pasangan Gambar</h4>
             <div class="mem-grid" id="mem-board"></div>
-            <button class="menu-btn" onclick="startMem()" style="background:#e74c3c; box-shadow: 0 4px 0 #c0392b;">Reset Kartu</button>
+            <button class="menu-btn" onclick="startMem()" style="background:#e74c3c;">Reset Kartu</button>
         </div>
     </div>
 
     <div class="footer-wrap">
         <div class="scrolling-text">
-            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ SEMANGATTT 🔥 HAKIM OFFICIAL 🚀
+            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ HAKIM OFFICIAL 🔥
         </div>
     </div>
 </div>
 
 <script>
+    // --- FITUR MUSIK ---
+    const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            musicBtn.classList.add("playing");
+            musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            music.pause();
+            musicBtn.classList.remove("playing");
+            musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+        }
+    }
+
+    // --- ANIMASI SALJU ---
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function initSnow() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        for(let i=0; i<100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 4 + 1,
+                d: Math.random() * 1
+            });
+        }
+    }
+    function drawSnow() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        for(let i=0; i<particles.length; i++) {
+            let p = particles[i];
+            ctx.moveTo(p.x, p.y);
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+        }
+        ctx.fill();
+        updateSnow();
+    }
+    function updateSnow() {
+        for(let i=0; i<particles.length; i++) {
+            let p = particles[i];
+            p.y += Math.cos(p.d) + 1 + p.r/2;
+            p.x += Math.sin(0) * 2;
+            if(p.y > canvas.height) {
+                particles[i] = { x: Math.random()*canvas.width, y: -10, r: p.r, d: p.d };
+            }
+        }
+    }
+    initSnow();
+    setInterval(drawSnow, 30);
+
+    // --- LOGIC GAME (DATA DARI KAMU) ---
     let globalScore = 0;
     function addScore(n) { 
         globalScore += n; 
@@ -261,7 +378,6 @@
 
     let tttBoard = Array(9).fill('');
     let isGameActive = true;
-
     function resetTTT() {
         tttBoard = Array(9).fill('');
         isGameActive = true;
@@ -276,7 +392,6 @@
             grid.appendChild(cell);
         }
     }
-
     function playerMove(i) {
         if(!tttBoard[i] && isGameActive) {
             tttBoard[i] = 'X';
@@ -295,7 +410,6 @@
             }
         }
     }
-
     function computerMove() {
         if(!isGameActive && tttBoard.some(c => c === '')) {
             let available = tttBoard.map((v, i) => v === '' ? i : null).filter(v => v !== null);
@@ -303,7 +417,6 @@
             tttBoard[move] = 'O';
             document.getElementById("ttt-"+move).innerText = 'O';
             document.getElementById("ttt-"+move).style.color = "#e74c3c";
-            
             if(checkWin('O')) {
                 document.getElementById('ttt-status').innerText = "Komputer Menang! 🤖";
             } else {
@@ -312,7 +425,6 @@
             }
         }
     }
-
     function checkWin(p) {
         const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         return winPatterns.some(pattern => pattern.every(index => tttBoard[index] === p));
@@ -321,7 +433,6 @@
     let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
     let flipped = [];
     let lockBoard = false;
-
     function startMem() {
         icons.sort(() => Math.random() - 0.5);
         let mBoard = document.getElementById('mem-board');
@@ -334,14 +445,11 @@
             mBoard.appendChild(card);
         });
     }
-
     function flipCard(idx) {
         let card = document.getElementById('card-'+idx);
         if(lockBoard || card.classList.contains('flipped')) return;
-        
         card.classList.add('flipped');
         flipped.push({ icon: icons[idx], idx: idx });
-        
         if(flipped.length === 2) {
             lockBoard = true;
             if(flipped[0].icon === flipped[1].icon) {
