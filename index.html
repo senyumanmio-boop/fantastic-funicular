@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,49 +15,37 @@
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
+            text-align: center; margin: 0; padding: 20px;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            overflow-x: hidden;
-            cursor: none; 
+            background-size: cover; color: white; overflow-x: hidden; cursor: none; 
         }
 
         .cursor-follower {
-            position: fixed;
-            width: 12px; height: 12px;
+            position: fixed; width: 12px; height: 12px;
             background: #2ecc71; border-radius: 50%;
             pointer-events: none; z-index: 9999;
-            box-shadow: 0 0 15px #2ecc71;
-            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 15px #2ecc71; transition: transform 0.1s ease-out;
         }
 
         #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
         .container {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            border-radius: 30px;
-            border: 2px solid #2ecc71;
-            max-width: 500px;
-            margin: auto;
-            position: relative;
-            z-index: 2;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px);
+            padding: 25px; border-radius: 30px; border: 2px solid #2ecc71;
+            max-width: 500px; margin: auto; position: relative; z-index: 2;
         }
 
+        /* TULISAN MENGETIK DI ATAS PROFIL */
+        .typing-box { height: 25px; color: #f1c40f; font-weight: bold; margin-bottom: 10px; font-size: 1.1em; text-shadow: 0 0 5px #f1c40f; }
+
         .profile-img {
-            width: 120px; height: 120px;
-            border-radius: 50%; border: 4px solid #2ecc71;
+            width: 120px; height: 120px; border-radius: 50%; border: 4px solid #2ecc71;
             object-fit: cover; transition: 0.5s;
         }
         .profile-img:hover { transform: scale(1.1) rotate(10deg); }
 
         .greeting { font-size: 1.2em; color: #2ecc71; font-weight: bold; margin: 10px 0; }
-        
         .stats-info { font-size: 0.8em; color: #bdc3c7; margin-bottom: 10px; }
 
         .btn-container { margin: 15px 0; display: flex; gap: 10px; justify-content: center; }
@@ -64,14 +54,12 @@
         .tt { background: #000; border: 1px solid rgba(255,255,255,0.2); }
 
         .game-hub {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px; border-radius: 20px; margin: 15px 0;
+            background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; margin: 15px 0;
             border: 1px solid rgba(46, 204, 113, 0.2);
         }
 
         .score-board {
-            display: flex; justify-content: space-around;
-            background: rgba(46, 204, 113, 0.2);
+            display: flex; justify-content: space-around; background: rgba(46, 204, 113, 0.2);
             padding: 10px; border-radius: 15px; margin-bottom: 15px;
         }
 
@@ -83,32 +71,30 @@
         }
         .menu-btn:active { transform: translateY(3px); box-shadow: none; }
 
-        .guest-book {
-            margin-top: 20px; text-align: left;
-            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .guest-input {
-            width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box; background: rgba(255,255,255,0.9);
-        }
-        .messages-list { height: 100px; overflow-y: auto; font-size: 0.85em; border-top: 1px solid #333; padding-top: 10px; }
-        .msg-item { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; margin-bottom: 5px; }
-
-        .confetti {
-            position: fixed; font-size: 25px; pointer-events: none; z-index: 999;
-            animation: fall 3s linear forwards;
-        }
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-
-        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .music-btn { width: 45px; height: 45px; border-radius: 50%; background: #2ecc71; border: none; color: white; cursor: pointer; }
-
         .game-screen { display: none; margin-top: 15px; border-top: 1px dashed #2ecc71; padding-top: 10px; }
+
+        /* MEMORY GAME STYLE */
+        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
+        .card { width: 50px; height: 50px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
+        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
+
         .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: auto; }
         .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
         .opt-btn { display: block; width: 100%; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #3498db; color: white; border-radius: 8px; cursor: pointer; }
+
+        .guest-book {
+            margin-top: 20px; text-align: left; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .guest-input { width: 100%; padding: 8px; border-radius: 5px; border: none; margin-bottom: 10px; box-sizing: border-box; background: rgba(255,255,255,0.9); }
+        .messages-list { height: 100px; overflow-y: auto; font-size: 0.85em; border-top: 1px solid #333; padding-top: 10px; }
+        .msg-item { background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; margin-bottom: 5px; }
+
+        .confetti { position: fixed; font-size: 25px; pointer-events: none; z-index: 999; animation: fall 3s linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .music-btn { width: 45px; height: 45px; border-radius: 50%; background: #2ecc71; border: none; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -126,12 +112,12 @@
 
 <div class="container">
     <div id="greeting-msg" class="greeting">Memuat...</div>
-    <div class="stats-info">👁️ Total Kunjungan Anda: <span id="visit-count">0</span></div>
+    <div class="stats-info">👁️ Total Kunjungan: <span id="visit-count">0</span></div>
     
+    <div class="typing-box" id="typing-text"></div>
+
     <img src="foto.jpg" alt="Hakim" class="profile-img">
     
-    <div style="margin: 10px 0; font-weight: bold; color: #f1c40f;" id="type-text"></div>
-
     <div class="btn-container">
         <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> IG</a>
         <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
@@ -146,11 +132,11 @@
         <button class="menu-btn" onclick="playSfx('click'); showGame('kuis')">Kuis</button>
         <button class="menu-btn" onclick="playSfx('click'); showGame('batu')">BatuGunting</button>
         <button class="menu-btn" onclick="playSfx('click'); showGame('ttt')">SOS</button>
+        <button class="menu-btn" onclick="playSfx('click'); showGame('mem')">Tebak Gambar</button>
 
         <div id="game-kuis" class="game-screen">
             <p id="tanya-kuis"></p>
             <div id="opsi-kuis"></div>
-            <p id="msg-kuis"></p>
         </div>
 
         <div id="game-batu" class="game-screen">
@@ -164,6 +150,12 @@
             <div class="ttt-grid" id="ttt-board"></div>
             <p id="ttt-status">Giliran Kamu (X)</p>
             <button class="menu-btn" onclick="resetTTT()" style="font-size: 0.7em;">Reset</button>
+        </div>
+
+        <div id="game-mem" class="game-screen">
+            <h4>Cari Pasangan!</h4>
+            <div class="mem-grid" id="mem-board"></div>
+            <button class="menu-btn" onclick="startMem()" style="font-size: 0.7em;">Mulai Ulang</button>
         </div>
     </div>
 
@@ -179,31 +171,37 @@
 </div>
 
 <script>
-    // GREETING
+    // 1. TULISAN MENGETIK (TYPEWRITER)
+    const words = ["Status: Online", "Location: Batam City", "Gamer Sejati 🎮", "Pemain Hadroh 🥁"];
+    let i = 0, j = 0, curr = "", isDel = false;
+    function type() {
+        curr = words[i];
+        if (isDel) { j--; } else { j++; }
+        document.getElementById('typing-text').innerHTML = curr.substring(0, j);
+        if (!isDel && j == curr.length) { setTimeout(() => isDel = true, 1500); }
+        else if (isDel && j == 0) { isDel = false; i = (i + 1) % words.length; }
+        setTimeout(type, isDel ? 50 : 100);
+    }
+    type();
+
+    // 2. GREETING & VISITS
     function updateGreeting() {
         const hr = new Date().getHours();
-        let g = hr < 12 ? "Selamat Pagi, Kak! ☀️" : hr < 15 ? "Selamat Siang, Kak! 🌤️" : hr < 18 ? "Selamat Sore, Kak! 🌅" : "Selamat Malam, Kak! 🌙";
-        document.getElementById('greeting-msg').innerText = g;
+        document.getElementById('greeting-msg').innerText = hr < 12 ? "Selamat Pagi! ☀️" : hr < 15 ? "Selamat Siang! 🌤️" : hr < 18 ? "Selamat Sore! 🌅" : "Selamat Malam! 🌙";
     }
     updateGreeting();
-
-    // VISITS
     let visits = localStorage.getItem('visitCount') || 0;
     visits++;
     localStorage.setItem('visitCount', visits);
     document.getElementById('visit-count').innerText = visits;
 
-    // SFX & EMOJI
+    // 3. SFX & EMOJI
     function playSfx(type) {
         try {
             if(type === 'click') document.getElementById('sfxClick').play();
-            if(type === 'win') {
-                document.getElementById('sfxWin').play();
-                createEmojiRain();
-            }
+            if(type === 'win') { document.getElementById('sfxWin').play(); createEmojiRain(); }
         } catch(e) {}
     }
-
     function createEmojiRain() {
         for(let i=0; i<20; i++) {
             const e = document.createElement('div');
@@ -217,61 +215,24 @@
         }
     }
 
-    // BUKU TAMU
-    function loadMessages() {
-        const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
-        document.getElementById('msgList').innerHTML = msgs.map(m => `<div class="msg-item"><b>${m.name}:</b> ${m.text}</div>`).reverse().join('');
-    }
-    function addGuestMessage() {
-        const name = document.getElementById('guestName').value;
-        const text = document.getElementById('guestMsg').value;
-        if(name && text) {
-            const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
-            msgs.push({name, text});
-            localStorage.setItem('hakimMsgs', JSON.stringify(msgs));
-            document.getElementById('guestName').value = '';
-            document.getElementById('guestMsg').value = '';
-            loadMessages();
-            playSfx('click');
-        }
-    }
-    loadMessages();
-
-    // KURSOR
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    // GAME LOGIC
-    let score = 0;
-    let high = localStorage.getItem('hakimHigh') || 0;
+    // 4. GAME LOGIC
+    let score = 0, high = localStorage.getItem('hakimHigh') || 0;
     document.getElementById('high-score').innerText = high;
-
     function addScore(n) {
-        score += n;
-        document.getElementById('score-val').innerText = score;
-        if(score > high) {
-            high = score;
-            localStorage.setItem('hakimHigh', high);
-            document.getElementById('high-score').innerText = high;
-        }
+        score += n; document.getElementById('score-val').innerText = score;
+        if(score > high) { high = score; localStorage.setItem('hakimHigh', high); document.getElementById('high-score').innerText = high; }
         playSfx('win');
     }
-
     function showGame(id) {
         document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
         document.getElementById('game-' + id).style.display = 'block';
         if(id === 'kuis') startKuis();
         if(id === 'ttt') resetTTT();
+        if(id === 'mem') startMem();
     }
 
     // KUIS
-    const soal = [
-        {q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0},
-        {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}
-    ];
+    const soal = [{q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0}, {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}];
     let cur = 0;
     function startKuis() { cur=0; nextS(); }
     function nextS() {
@@ -287,11 +248,30 @@
         } else { document.getElementById('tanya-kuis').innerText="Selesai!"; document.getElementById('opsi-kuis').innerHTML=""; }
     }
 
-    // SOS
+    // MEMORY GAME
+    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'], flipped = [];
+    function startMem() {
+        icons.sort(() => Math.random() - 0.5);
+        const m = document.getElementById('mem-board'); m.innerHTML = "";
+        icons.forEach((ic, idx) => {
+            let c = document.createElement('div'); c.className = 'card'; c.id = 'c-'+idx;
+            c.innerText = ic; c.onclick = () => flip(idx); m.appendChild(c);
+        });
+    }
+    function flip(idx) {
+        let c = document.getElementById('c-'+idx);
+        if (c.classList.contains('flipped') || flipped.length === 2) return;
+        c.classList.add('flipped'); flipped.push({ic: icons[idx], idx: idx});
+        if (flipped.length === 2) {
+            if (flipped[0].ic === flipped[1].ic) { addScore(30); flipped = []; }
+            else { setTimeout(() => { document.getElementById('c-'+flipped[0].idx).classList.remove('flipped'); document.getElementById('c-'+flipped[1].idx).classList.remove('flipped'); flipped = []; }, 700); }
+        }
+    }
+
+    // SOS & BATU (SIMPLE)
     let board = Array(9).fill('');
     function resetTTT() {
-        board = Array(9).fill('');
-        const g = document.getElementById('ttt-board'); g.innerHTML = '';
+        board = Array(9).fill(''); const g = document.getElementById('ttt-board'); g.innerHTML = '';
         for(let i=0; i<9; i++) {
             let c = document.createElement('div'); c.className='ttt-cell';
             c.onclick = () => { if(!board[i]){ board[i]='X'; c.innerText='X'; if(check(board,'X')){addScore(50); document.getElementById('ttt-status').innerText="MENANG!";}else{setTimeout(comp,400);} } };
@@ -299,36 +279,32 @@
         }
         document.getElementById('ttt-status').innerText="Giliran Kamu (X)";
     }
-    function comp() {
-        let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null);
-        if(a.length) { let m = a[Math.floor(Math.random()*a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; }
-    }
-    function check(b, p) {
-        const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-        return w.some(s => s.every(i => b[i] === p));
-    }
+    function comp() { let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null); if(a.length) { let m = a[Math.floor(Math.random()*a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; } }
+    function check(b, p) { const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return w.some(s => s.every(i => b[i] === p)); }
+    function playBatu(u) { const p=['✊','✌️','✋'], c=p[Math.floor(Math.random()*3)]; let r=u==c?"Seri!":((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊'))?"Menang! +10":"Kalah!"; if(r.includes("Menang")) addScore(10); document.getElementById('res-batu').innerText=`Komp: ${c} | ${r}`; }
 
-    // BATU GUNTING
-    function playBatu(u) {
-        const p = ['✊','✌️','✋']; const c = p[Math.floor(Math.random()*3)];
-        let r = u==c ? "Seri!" : (u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊') ? "Menang! +10" : "Kalah!";
-        if(r.includes("Menang")) addScore(10);
-        document.getElementById('res-batu').innerText = `Komp: ${c} | ${r}`;
+    // BUKU TAMU
+    function loadMessages() {
+        const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || [];
+        document.getElementById('msgList').innerHTML = msgs.map(m => `<div class="msg-item"><b>${m.name}:</b> ${m.text}</div>`).reverse().join('');
     }
-
-    // MUSIK
-    const m = document.getElementById("bgMusic");
-    function toggleMusic() {
-        if (m.paused) { m.play(); document.getElementById('musicBtn').style.background = '#e74c3c'; }
-        else { m.pause(); document.getElementById('musicBtn').style.background = '#2ecc71'; }
+    function addGuestMessage() {
+        const name = document.getElementById('guestName').value, text = document.getElementById('guestMsg').value;
+        if(name && text) {
+            const msgs = JSON.parse(localStorage.getItem('hakimMsgs')) || []; msgs.push({name, text});
+            localStorage.setItem('hakimMsgs', JSON.stringify(msgs));
+            document.getElementById('guestName').value = ''; document.getElementById('guestMsg').value = '';
+            loadMessages(); playSfx('click');
+        }
     }
+    loadMessages();
 
-    // SALJU
-    const cv = document.getElementById('snow-canvas');
-    const cx = cv.getContext('2d');
-    let p = [];
-    function init() { cv.width = window.innerWidth; cv.height = window.innerHeight; for(let i=0; i<50; i++) p.push({x:Math.random()*cv.width, y:Math.random()*cv.height, r:Math.random()*3+1}); }
-    function draw() { cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='white'; cx.beginPath(); p.forEach(s => { cx.moveTo(s.x, s.y); cx.arc(s.x, s.y, s.r, 0, Math.PI*2); s.y += 1; if(s.y>cv.height) s.y=-10; }); cx.fill(); requestAnimationFrame(draw); }
+    // KURSOR & MUSIK & SALJU
+    const cursor = document.getElementById('cursor'); document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+    const m = document.getElementById("bgMusic"); function toggleMusic() { if (m.paused) { m.play(); document.getElementById('musicBtn').style.background = '#e74c3c'; } else { m.pause(); document.getElementById('musicBtn').style.background = '#2ecc71'; } }
+    const cv = document.getElementById('snow-canvas'), cx = cv.getContext('2d'); let slj = [];
+    function init() { cv.width = window.innerWidth; cv.height = window.innerHeight; for(let i=0; i<50; i++) slj.push({x:Math.random()*cv.width, y:Math.random()*cv.height, r:Math.random()*3+1}); }
+    function draw() { cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='white'; cx.beginPath(); slj.forEach(s => { cx.moveTo(s.x, s.y); cx.arc(s.x, s.y, s.r, 0, Math.PI*2); s.y += 1; if(s.y>cv.height) s.y=-10; }); cx.fill(); requestAnimationFrame(draw); }
     init(); draw();
 </script>
 </body>
