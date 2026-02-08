@@ -11,7 +11,7 @@
     <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -19,7 +19,6 @@
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
             background-size: cover; color: white; overflow-x: hidden;
-            /* Kursor kembali normal */
             cursor: auto; 
         }
 
@@ -66,6 +65,31 @@
         .menu-btn:active { transform: translateY(3px); box-shadow: none; }
 
         .game-screen { display: none; margin-top: 15px; border-top: 1px dashed #2ecc71; padding-top: 10px; }
+
+        /* TEKS BERJALAN (MARQUEE) */
+        .marquee-container {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid #2ecc71;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: jalan-samping 15s linear infinite;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        @keyframes jalan-samping {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
 
         .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
         .card { width: 50px; height: 50px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
@@ -129,6 +153,12 @@
             <h4>Cari Pasangan!</h4>
             <div class="mem-grid" id="mem-board"></div>
             <button class="menu-btn" onclick="startMem()" style="font-size: 0.7em;">Mulai Ulang</button>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+            Selamat Datang di Hakim Official Site • Batam City Pride • Game Arcade Center Online • Selamat Bermain dan Raih Skor Tertinggi! •
         </div>
     </div>
 
