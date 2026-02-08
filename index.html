@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>TENTANG HAKIM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENTANG HAKIM | OFFICIAL SITE</title>
+    
+    <meta name="description" content="Website Resmi Hakim - Hakim Arcade Center & Social Media. Mainkan game seru dan kenali Hakim lebih dekat!">
+    <meta name="keywords" content="Hakim, Kimmaja, Hakim Arcade, Game Online Batam, Profil Hakim, Aselolee10">
+    <meta name="author" content="Hakim">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -45,27 +52,35 @@
         .btn-container {
             margin: 20px 0;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
         }
         .btn-sm {
-            padding: 10px 15px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 0.8em;
+            font-size: 0.85em;
             transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .wa { background: #25d366; }
-        .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        .btn-sm i { font-size: 1.2em; }
+        
+        /* STYLE TIKTOK DENGAN EFEK GLOW */
+        .tt { 
+            background: #000000; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .tt:hover {
+            transform: translateY(-3px);
+            box-shadow: 3px 0 10px #ee1d52, -3px 0 10px #69c9d0;
+        }
 
-        /* Styling Area Game */
+        .btn-sm:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
         .game-hub {
             margin-top: 20px;
             padding: 20px;
@@ -87,22 +102,15 @@
             transition: 0.2s;
             box-shadow: 0 4px 0 #2980b9;
         }
-        .menu-btn:active {
-            transform: translateY(3px);
-            box-shadow: none;
-        }
-        .menu-btn:hover {
-            background: #2980b9;
-        }
+        .menu-btn:active { transform: translateY(3px); box-shadow: none; }
+        .menu-btn:hover { background: #2980b9; }
 
         .game-screen { display: none; margin-top: 15px; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
-        /* SOS / Tic Tac Toe Grid */
         .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: 10px auto; }
         .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #3498db; color: #fff; font-weight: bold; }
 
-        /* Memory Card Grid */
         .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
         .card { width: 55px; height: 55px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
         .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
@@ -110,7 +118,6 @@
         .opt-btn { display: block; width: 100%; padding: 10px; margin: 5px 0; background: rgba(255, 255, 255, 0.1); border: 1px solid #3498db; color: white; border-radius: 10px; cursor: pointer; }
         .opt-btn:hover { background: #3498db; }
 
-        /* --- STYLING BARU UNTUK TEKS BERJALAN --- */
         .footer-wrap {
             margin-top: 25px;
             width: 100%;
@@ -121,7 +128,6 @@
             border: 1px solid rgba(46, 204, 113, 0.3);
             position: relative;
         }
-
         .scrolling-text {
             display: inline-block;
             white-space: nowrap;
@@ -129,20 +135,13 @@
             font-size: 0.85em;
             color: #2ecc71;
             text-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
-            animation: scroll-left 20s linear infinite;
+            animation: scroll-left 15s linear infinite;
         }
-
         @keyframes scroll-left {
             from { transform: translateX(100%); }
             to { transform: translateX(-100%); }
         }
-
-        .footer-wrap:hover .scrolling-text {
-            animation-play-state: paused;
-            color: #fff;
-            text-shadow: 0 0 15px #2ecc71;
-            cursor: default;
-        }
+        .footer-wrap:hover .scrolling-text { animation-play-state: paused; color: #fff; }
     </style>
 </head>
 <body>
@@ -153,16 +152,14 @@
     
     <img src="foto.jpg" alt="Hakim" class="profile-img">
     
-    
     <div class="btn-container">
-    <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">
-        <i class="fab fa-instagram"></i> INSTAGRAM
-    </a>
-    <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank">
-        <i class="fab fa-tiktok"></i> TIKTOK
-    </a>
-</div>
-    
+        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank">
+            <i class="fab fa-instagram"></i> INSTAGRAM
+        </a>
+        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank">
+            <i class="fab fa-tiktok"></i> TIKTOK
+        </a>
+    </div>
 
     <div class="game-hub">
         <h3 style="margin-top:0;">🎮 HAKIM ARCADE CENTER</h3>
@@ -203,7 +200,7 @@
 
     <div class="footer-wrap">
         <div class="scrolling-text">
-            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ SEMANGATTT 🔥
+            🚀 TERIMAKASIH TELAH BERKUNJUNG DI WEBSITE INI • SEMOGA HARIMU MENYENANGKAN ✨ SEMANGATTT 🔥 HAKIM OFFICIAL 🚀
         </div>
     </div>
 </div>
