@@ -119,428 +119,158 @@
         <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> IG</a>
         <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
     </div>
-
-    <!DOCTYPE html>
-<html lang="id">
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TENTANG HAKIM | OFFICIAL SITE</title>
-    
-    <meta name="description" content="Website Resmi Hakim - Hakim Arcade Center">
-    <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            text-align: center; margin: 0; padding: 20px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover; color: white; overflow-x: hidden;
-            cursor: auto; 
-        }
-
-        #snow-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-
-        .container {
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 30px; border: 2px solid #2ecc71;
-            max-width: 500px; margin: auto; position: relative; z-index: 2;
-        }
-
-        .typing-box { height: 25px; color: #f1c40f; font-weight: bold; margin-bottom: 10px; font-size: 1.1em; text-shadow: 0 0 5px #f1c40f; }
-
-        .profile-img {
-            width: 120px; height: 120px; border-radius: 50%; border: 4px solid #2ecc71;
-            object-fit: cover; transition: 0.5s;
-        }
-        .profile-img:hover { transform: scale(1.1) rotate(10deg); }
-
-        .greeting { font-size: 1.2em; color: #2ecc71; font-weight: bold; margin: 10px 0; }
-        .stats-info { font-size: 0.8em; color: #bdc3c7; margin-bottom: 10px; }
-
-        .btn-container { margin: 15px 0; display: flex; gap: 10px; justify-content: center; }
-        .btn-sm { padding: 8px 15px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; font-size: 0.8em; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
-        .ig { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
-        .tt { background: #000; border: 1px solid rgba(255,255,255,0.2); }
-
-        .game-hub {
-            background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 20px; margin: 15px 0;
-            border: 1px solid rgba(46, 204, 113, 0.2);
-        }
-
-        .score-board {
-            display: flex; justify-content: space-around; background: rgba(46, 204, 113, 0.2);
-            padding: 10px; border-radius: 15px; margin-bottom: 15px;
-        }
-
-        .menu-btn { 
-            background: #3498db; color: white; border: none; 
-            padding: 8px 15px; margin: 4px; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; transition: 0.2s;
-            box-shadow: 0 4px 0 #2980b9;
-        }
-        .menu-btn:active { transform: translateY(3px); box-shadow: none; }
-
-        .game-screen { display: none; margin-top: 15px; border-top: 1px dashed #2ecc71; padding-top: 10px; }
-
-        /* TEKS BERJALAN (MARQUEE) */
-        .marquee-container {
-            background: rgba(46, 204, 113, 0.1);
-            border: 1px solid #2ecc71;
-            border-radius: 10px;
-            margin-top: 20px;
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 8px 0;
-        }
-
-        .marquee-text {
-            display: inline-block;
-            animation: jalan-samping 15s linear infinite;
-            color: #2ecc71;
-            font-weight: bold;
-            font-size: 0.9em;
-            text-transform: uppercase;
-        }
-
-        @keyframes jalan-samping {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px auto; width: 240px; }
-        .card { width: 50px; height: 50px; background: #3498db; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: transparent; transition: 0.3s; }
-        .card.flipped { color: white; background: #e67e22; transform: rotateY(180deg); }
-
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 150px; margin: auto; }
-        .ttt-cell { width: 50px; height: 50px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.5em; cursor: pointer; border: 1px solid #2ecc71; }
-        .opt-btn { display: block; width: 100%; padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border: 1px solid #3498db; color: white; border-radius: 8px; cursor: pointer; }
-
-        .confetti { position: fixed; font-size: 25px; pointer-events: none; z-index: 999; animation: fall 3s linear forwards; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
-    </style>
-</head>
-<body>
-
-<canvas id="snow-canvas"></canvas>
-
-<div class="container">
-    <div id="greeting-msg" class="greeting">Memuat...</div>
-    <div class="stats-info">👁️ Kunjungan Anda: <span id="visit-count">0</span></div>
-    
-    <div class="typing-box" id="typing-text"></div>
-
-    <img src="foto.jpg" alt="Hakim" class="profile-img">
-    
-    <div class="btn-container">
-        <a href="https://instagram.com/kimmaja._" class="btn-sm ig" target="_blank"><i class="fab fa-instagram"></i> IG</a>
-        <a href="https://www.tiktok.com/@_aselolee10" class="btn-sm tt" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+    <div id="loader" style="position: fixed; width: 100%; height: 100vh; background: black; color: #00ff00; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; font-family: monospace;">
+    <div style="font-size: 20px; margin-bottom: 10px;">> INITIALIZING HAKIM_SYSTEM...</div>
+    <div style="width: 200px; height: 10px; border: 1px solid #00ff00; border-radius: 5px; overflow: hidden;">
+        <div id="progress" style="width: 0%; height: 100%; background: #00ff00;"></div>
     </div>
-
-    <div class="game-hub">
-        <div class="score-board">
-            <div>Skor: <span id="score-val">0</span></div>
-            <div>Terbaik: <span id="high-score">0</span></div>
-        </div>
-        
-        <button class="menu-btn" onclick="showGame('kuis')">Kuis</button>
-        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
-        <button class="menu-btn" onclick="showGame('mem')">Tebak Gambar</button>
-
-        <div id="game-kuis" class="game-screen">
-            <p id="tanya-kuis"></p>
-            <div id="opsi-kuis"></div>
-        </div>
-
-        <div id="game-batu" class="game-screen">
-            <button class="menu-btn" onclick="playBatu('✊')">✊</button>
-            <button class="menu-btn" onclick="playBatu('✌️')">✌️</button>
-            <button class="menu-btn" onclick="playBatu('✋')">✋</button>
-            <p id="res-batu"></p>
-        </div>
-
-        <div id="game-ttt" class="game-screen">
-            <div class="ttt-grid" id="ttt-board"></div>
-            <p id="ttt-status">Giliran Kamu (X)</p>
-            <button class="menu-btn" onclick="resetTTT()" style="font-size: 0.7em;">Reset</button>
-        </div>
-
-        <div id="game-mem" class="game-screen">
-            <h4>Cari Pasangan!</h4>
-            <div class="mem-grid" id="mem-board"></div>
-            <button class="menu-btn" onclick="startMem()" style="font-size: 0.7em;">Mulai Ulang</button>
-        </div>
-    </div>
-
-    <div class="marquee-container">
-        <div class="marquee-text">
-            Selamat Datang di Hakim Official Site • Batam City Pride • Game Arcade Center Online • Selamat Bermain dan Raih Skor Tertinggi! •
-        </div>
-    </div>
-
-    <div style="margin-top: 20px; font-size: 0.7em; opacity: 0.6;">© 2026 Hakim Official • Batam City 🔥</div>
-</div>
-   
-    <div class="visitor-map-box">
-    <span class="map-title">🌍 LIVE VISITOR MAP</span>
-    
-    <div id="map-area">
-        <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=0gft6ryz85a&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
-    </div>
-    
+    <p id="load-text" style="margin-top: 10px;">Loading assets: 0%</p>
 </div>
 
 <script>
-    // 1. TYPEWRITER
-    const words = ["Status: Online", "Location: Batam City", "Gamer Sejati 🎮", "Pemain Hadroh 🥁"];
-    let i = 0, j = 0, curr = "", isDel = false;
-    function type() {
-        curr = words[i];
-        if (isDel) { j--; } else { j++; }
-        document.getElementById('typing-text').innerHTML = curr.substring(0, j);
-        if (!isDel && j == curr.length) { setTimeout(() => isDel = true, 1500); }
-        else if (isDel && j == 0) { isDel = false; i = (i + 1) % words.length; }
-        setTimeout(type, isDel ? 50 : 100);
+  let width = 0;
+  let loading = setInterval(() => {
+    if (width >= 100) {
+      clearInterval(loading);
+      document.getElementById('loader').style.display = 'none';
+    } else {
+      width += Math.floor(Math.random() * 10) + 1;
+      if(width > 100) width = 100;
+      document.getElementById('progress').style.width = width + '%';
+      document.getElementById('load-text').innerText = "Loading assets: " + width + "%";
     }
-    type();
-
-    // 2. GREETING & VISITS
-    function updateGreeting() {
-        const hr = new Date().getHours();
-        document.getElementById('greeting-msg').innerText = hr < 12 ? "Selamat Pagi! ☀️" : hr < 15 ? "Selamat Siang! 🌤️" : hr < 18 ? "Selamat Sore! 🌅" : "Selamat Malam! 🌙";
-    }
-    updateGreeting();
-    let visits = localStorage.getItem('visitCount') || 0;
-    visits++;
-    localStorage.setItem('visitCount', visits);
-    document.getElementById('visit-count').innerText = visits;
-
-    // 3. EMOJI RAIN
-    function createEmojiRain() {
-        for(let i=0; i<20; i++) {
-            const e = document.createElement('div');
-            e.className = 'confetti';
-            e.innerText = ['🎉','🔥','💎','✨','👏'][Math.floor(Math.random()*5)];
-            e.style.left = Math.random() * 100 + 'vw';
-            e.style.top = '-50px';
-            e.style.animationDuration = (Math.random() * 2 + 1) + 's';
-            document.body.appendChild(e);
-            setTimeout(() => e.remove(), 3000);
-        }
-    }
-
-    // 4. GAME LOGIC
-    let score = 0, high = localStorage.getItem('hakimHigh') || 0;
-    document.getElementById('high-score').innerText = high;
-    function addScore(n) {
-        score += n; document.getElementById('score-val').innerText = score;
-        if(score > high) { high = score; localStorage.setItem('hakimHigh', high); document.getElementById('high-score').innerText = high; }
-        createEmojiRain();
-    }
-    function showGame(id) {
-        document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
-        document.getElementById('game-' + id).style.display = 'block';
-        if(id === 'kuis') startKuis();
-        if(id === 'ttt') resetTTT();
-        if(id === 'mem') startMem();
-    }
-
-    // KUIS
-    const soal = [{q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0}, {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}];
-    let cur = 0;
-    function startKuis() { cur=0; nextS(); }
-    function nextS() {
-        if(cur < soal.length) {
-            let s = soal[cur];
-            document.getElementById('tanya-kuis').innerText = s.q;
-            let o = document.getElementById('opsi-kuis'); o.innerHTML = "";
-            s.a.forEach((t,i) => {
-                let b = document.createElement('button'); b.className="opt-btn"; b.innerText=t;
-                b.onclick = () => { if(i==s.c){addScore(20);}; cur++; nextS(); };
-                o.appendChild(b);
-            });
-        } else { document.getElementById('tanya-kuis').innerText="Selesai!"; document.getElementById('opsi-kuis').innerHTML=""; }
-    }
-
-    // MEMORY GAME
-    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'], flipped = [];
-    function startMem() {
-        icons.sort(() => Math.random() - 0.5);
-        const m = document.getElementById('mem-board'); m.innerHTML = "";
-        icons.forEach((ic, idx) => {
-
-    <div class="game-hub">
-        <div class="score-board">
-            <div>Skor: <span id="score-val">0</span></div>
-            <div>Terbaik: <span id="high-score">0</span></div>
-        </div>
-        
-        <button class="menu-btn" onclick="showGame('kuis')">Kuis</button>
-        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
-        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
-        <button class="menu-btn" onclick="showGame('mem')">Tebak Gambar</button>
-
-        <div id="game-kuis" class="game-screen">
-            <p id="tanya-kuis"></p>
-            <div id="opsi-kuis"></div>
-        </div>
-
-        <div id="game-batu" class="game-screen">
-            <button class="menu-btn" onclick="playBatu('✊')">✊</button>
-            <button class="menu-btn" onclick="playBatu('✌️')">✌️</button>
-            <button class="menu-btn" onclick="playBatu('✋')">✋</button>
-            <p id="res-batu"></p>
-        </div>
-
-        <div id="game-ttt" class="game-screen">
-            <div class="ttt-grid" id="ttt-board"></div>
-            <p id="ttt-status">Giliran Kamu (X)</p>
-            <button class="menu-btn" onclick="resetTTT()" style="font-size: 0.7em;">Reset</button>
-        </div>
-
-        <div id="game-mem" class="game-screen">
-            <h4>Cari Pasangan!</h4>
-            <div class="mem-grid" id="mem-board"></div>
-            <button class="menu-btn" onclick="startMem()" style="font-size: 0.7em;">Mulai Ulang</button>
-        </div>
-    </div>
-
-    <div class="marquee-container">
-        <div class="marquee-text">
-            Selamat Datang di Hakim Official Site • Batam City Pride • Game Arcade Center Online • Selamat Bermain dan Raih Skor Tertinggi! •
-        </div>
-    </div>
-
-    <div style="margin-top: 20px; font-size: 0.7em; opacity: 0.6;">© 2026 Hakim Official • Batam City 🔥</div>
-</div>
-   
-    <div class="visitor-map-box">
-    <span class="map-title">🌍 LIVE VISITOR MAP</span>
-    
-    <div id="map-area">
-        <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=0gft6ryz85a&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
-    </div>
-    
-</div>
-
-<script>
-    // 1. TYPEWRITER
-    const words = ["Status: Online", "Location: Batam City", "Gamer Sejati 🎮", "Pemain Hadroh 🥁"];
-    let i = 0, j = 0, curr = "", isDel = false;
-    function type() {
-        curr = words[i];
-        if (isDel) { j--; } else { j++; }
-        document.getElementById('typing-text').innerHTML = curr.substring(0, j);
-        if (!isDel && j == curr.length) { setTimeout(() => isDel = true, 1500); }
-        else if (isDel && j == 0) { isDel = false; i = (i + 1) % words.length; }
-        setTimeout(type, isDel ? 50 : 100);
-    }
-    type();
-
-    // 2. GREETING & VISITS
-    function updateGreeting() {
-        const hr = new Date().getHours();
-        document.getElementById('greeting-msg').innerText = hr < 12 ? "Selamat Pagi! ☀️" : hr < 15 ? "Selamat Siang! 🌤️" : hr < 18 ? "Selamat Sore! 🌅" : "Selamat Malam! 🌙";
-    }
-    updateGreeting();
-    let visits = localStorage.getItem('visitCount') || 0;
-    visits++;
-    localStorage.setItem('visitCount', visits);
-    document.getElementById('visit-count').innerText = visits;
-
-    // 3. EMOJI RAIN
-    function createEmojiRain() {
-        for(let i=0; i<20; i++) {
-            const e = document.createElement('div');
-            e.className = 'confetti';
-            e.innerText = ['🎉','🔥','💎','✨','👏'][Math.floor(Math.random()*5)];
-            e.style.left = Math.random() * 100 + 'vw';
-            e.style.top = '-50px';
-            e.style.animationDuration = (Math.random() * 2 + 1) + 's';
-            document.body.appendChild(e);
-            setTimeout(() => e.remove(), 3000);
-        }
-    }
-
-    // 4. GAME LOGIC
-    let score = 0, high = localStorage.getItem('hakimHigh') || 0;
-    document.getElementById('high-score').innerText = high;
-    function addScore(n) {
-        score += n; document.getElementById('score-val').innerText = score;
-        if(score > high) { high = score; localStorage.setItem('hakimHigh', high); document.getElementById('high-score').innerText = high; }
-        createEmojiRain();
-    }
-    function showGame(id) {
-        document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
-        document.getElementById('game-' + id).style.display = 'block';
-        if(id === 'kuis') startKuis();
-        if(id === 'ttt') resetTTT();
-        if(id === 'mem') startMem();
-    }
-
-    // KUIS
-    const soal = [{q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0}, {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}];
-    let cur = 0;
-    function startKuis() { cur=0; nextS(); }
-    function nextS() {
-        if(cur < soal.length) {
-            let s = soal[cur];
-            document.getElementById('tanya-kuis').innerText = s.q;
-            let o = document.getElementById('opsi-kuis'); o.innerHTML = "";
-            s.a.forEach((t,i) => {
-                let b = document.createElement('button'); b.className="opt-btn"; b.innerText=t;
-                b.onclick = () => { if(i==s.c){addScore(20);}; cur++; nextS(); };
-                o.appendChild(b);
-            });
-        } else { document.getElementById('tanya-kuis').innerText="Selesai!"; document.getElementById('opsi-kuis').innerHTML=""; }
-    }
-
-    // MEMORY GAME
-    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'], flipped = [];
-    function startMem() {
-        icons.sort(() => Math.random() - 0.5);
-        const m = document.getElementById('mem-board'); m.innerHTML = "";
-        icons.forEach((ic, idx) => {
-            let c = document.createElement('div'); c.className = 'card'; c.id = 'c-'+idx;
-            c.innerText = ic; c.onclick = () => flip(idx); m.appendChild(c);
-        });
-    }
-    function flip(idx) {
-        let c = document.getElementById('c-'+idx);
-        if (c.classList.contains('flipped') || flipped.length === 2) return;
-        c.classList.add('flipped'); flipped.push({ic: icons[idx], idx: idx});
-        if (flipped.length === 2) {
-            if (flipped[0].ic === flipped[1].ic) { addScore(30); flipped = []; }
-            else { setTimeout(() => { document.getElementById('c-'+flipped[0].idx).classList.remove('flipped'); document.getElementById('c-'+flipped[1].idx).classList.remove('flipped'); flipped = []; }, 700); }
-        }
-    }
-
-    // SOS & BATU
-    let board = Array(9).fill('');
-    function resetTTT() {
-        board = Array(9).fill(''); const g = document.getElementById('ttt-board'); g.innerHTML = '';
-        for(let i=0; i<9; i++) {
-            let c = document.createElement('div'); c.className='ttt-cell';
-            c.onclick = () => { if(!board[i]){ board[i]='X'; c.innerText='X'; if(check(board,'X')){addScore(50); document.getElementById('ttt-status').innerText="MENANG!";}else{setTimeout(comp,400);} } };
-            g.appendChild(c);
-        }
-        document.getElementById('ttt-status').innerText="Giliran Kamu (X)";
-    }
-    function comp() { let a = board.map((v,i)=>v==='' ? i : null).filter(v=>v!==null); if(a.length) { let m = a[Math.floor(Math.random()*3 % a.length)]; board[m]='O'; document.getElementsByClassName('ttt-cell')[m].innerText='O'; } }
-    function check(b, p) { const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return w.some(s => s.every(i => b[i] === p)); }
-    function playBatu(u) { const p=['✊','✌️','✋'], c=p[Math.floor(Math.random()*3)]; let r=u==c?"Seri!":((u=='✊'&&c=='✌️')||(u=='✌️'&&c=='✋')||(u=='✋'&&c=='✊'))?"Menang! +10":"Kalah!"; if(r.includes("Menang")) addScore(10); document.getElementById('res-batu').innerText=`Komp: ${c} | ${r}`; }
-
-    // SALJU
-    const cv = document.getElementById('snow-canvas'), cx = cv.getContext('2d'); let slj = [];
-    function init() { cv.width = window.innerWidth; cv.height = window.innerHeight; for(let i=0; i<50; i++) slj.push({x:Math.random()*cv.width, y:Math.random()*cv.height, r:Math.random()*3+1}); }
-    function draw() { cx.clearRect(0,0,cv.width,cv.height); cx.fillStyle='white'; cx.beginPath(); slj.forEach(s => { cx.moveTo(s.x, s.y); cx.arc(s.x, s.y, s.r, 0, Math.PI*2); s.y += 1; if(s.y>cv.height) s.y=-10; }); cx.fill(); requestAnimationFrame(draw); }
-    init(); draw();
+  }, 100);
 </script>
-</body>
-</html>
+
+    <div class="game-hub">
+        <div class="score-board">
+            <div>Skor: <span id="score-val">0</span></div>
+            <div>Terbaik: <span id="high-score">0</span></div>
+        </div>
+        
+        <button class="menu-btn" onclick="showGame('kuis')">Kuis</button>
+        <button class="menu-btn" onclick="showGame('batu')">BatuGunting</button>
+        <button class="menu-btn" onclick="showGame('ttt')">SOS</button>
+        <button class="menu-btn" onclick="showGame('mem')">Tebak Gambar</button>
+
+        <div id="game-kuis" class="game-screen">
+            <p id="tanya-kuis"></p>
+            <div id="opsi-kuis"></div>
+        </div>
+
+        <div id="game-batu" class="game-screen">
+            <button class="menu-btn" onclick="playBatu('✊')">✊</button>
+            <button class="menu-btn" onclick="playBatu('✌️')">✌️</button>
+            <button class="menu-btn" onclick="playBatu('✋')">✋</button>
+            <p id="res-batu"></p>
+        </div>
+
+        <div id="game-ttt" class="game-screen">
+            <div class="ttt-grid" id="ttt-board"></div>
+            <p id="ttt-status">Giliran Kamu (X)</p>
+            <button class="menu-btn" onclick="resetTTT()" style="font-size: 0.7em;">Reset</button>
+        </div>
+
+        <div id="game-mem" class="game-screen">
+            <h4>Cari Pasangan!</h4>
+            <div class="mem-grid" id="mem-board"></div>
+            <button class="menu-btn" onclick="startMem()" style="font-size: 0.7em;">Mulai Ulang</button>
+        </div>
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-text">
+            Selamat Datang di Hakim Official Site • Batam City Pride • Game Arcade Center Online • Selamat Bermain dan Raih Skor Tertinggi! •
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 0.7em; opacity: 0.6;">© 2026 Hakim Official • Batam City 🔥</div>
+</div>
+   
+    <div class="visitor-map-box">
+    <span class="map-title">🌍 LIVE VISITOR MAP</span>
+    
+    <div id="map-area">
+        <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=0gft6ryz85a&amp;m=0&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+    </div>
+    
+</div>
+
+<script>
+    // 1. TYPEWRITER
+    const words = ["Status: Online", "Location: Batam City", "Gamer Sejati 🎮", "Pemain Hadroh 🥁"];
+    let i = 0, j = 0, curr = "", isDel = false;
+    function type() {
+        curr = words[i];
+        if (isDel) { j--; } else { j++; }
+        document.getElementById('typing-text').innerHTML = curr.substring(0, j);
+        if (!isDel && j == curr.length) { setTimeout(() => isDel = true, 1500); }
+        else if (isDel && j == 0) { isDel = false; i = (i + 1) % words.length; }
+        setTimeout(type, isDel ? 50 : 100);
+    }
+    type();
+
+    // 2. GREETING & VISITS
+    function updateGreeting() {
+        const hr = new Date().getHours();
+        document.getElementById('greeting-msg').innerText = hr < 12 ? "Selamat Pagi! ☀️" : hr < 15 ? "Selamat Siang! 🌤️" : hr < 18 ? "Selamat Sore! 🌅" : "Selamat Malam! 🌙";
+    }
+    updateGreeting();
+    let visits = localStorage.getItem('visitCount') || 0;
+    visits++;
+    localStorage.setItem('visitCount', visits);
+    document.getElementById('visit-count').innerText = visits;
+
+    // 3. EMOJI RAIN
+    function createEmojiRain() {
+        for(let i=0; i<20; i++) {
+            const e = document.createElement('div');
+            e.className = 'confetti';
+            e.innerText = ['🎉','🔥','💎','✨','👏'][Math.floor(Math.random()*5)];
+            e.style.left = Math.random() * 100 + 'vw';
+            e.style.top = '-50px';
+            e.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 3000);
+        }
+    }
+
+    // 4. GAME LOGIC
+    let score = 0, high = localStorage.getItem('hakimHigh') || 0;
+    document.getElementById('high-score').innerText = high;
+    function addScore(n) {
+        score += n; document.getElementById('score-val').innerText = score;
+        if(score > high) { high = score; localStorage.setItem('hakimHigh', high); document.getElementById('high-score').innerText = high; }
+        createEmojiRain();
+    }
+    function showGame(id) {
+        document.querySelectorAll('.game-screen').forEach(s => s.style.display = 'none');
+        document.getElementById('game-' + id).style.display = 'block';
+        if(id === 'kuis') startKuis();
+        if(id === 'ttt') resetTTT();
+        if(id === 'mem') startMem();
+    }
+
+    // KUIS
+    const soal = [{q:"Apa hobi Hakim?", a:["Hadroh","Tidur"], c:0}, {q:"Klub Bola Hakim?", a:["Barca","Madrid"], c:0}];
+    let cur = 0;
+    function startKuis() { cur=0; nextS(); }
+    function nextS() {
+        if(cur < soal.length) {
+            let s = soal[cur];
+            document.getElementById('tanya-kuis').innerText = s.q;
+            let o = document.getElementById('opsi-kuis'); o.innerHTML = "";
+            s.a.forEach((t,i) => {
+                let b = document.createElement('button'); b.className="opt-btn"; b.innerText=t;
+                b.onclick = () => { if(i==s.c){addScore(20);}; cur++; nextS(); };
+                o.appendChild(b);
+            });
+        } else { document.getElementById('tanya-kuis').innerText="Selesai!"; document.getElementById('opsi-kuis').innerHTML=""; }
+    }
+
+    // MEMORY GAME
+    let icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'], flipped = [];
+    function startMem() {
+        icons.sort(() => Math.random() - 0.5);
+        const m = document.getElementById('mem-board'); m.innerHTML = "";
+        icons.forEach((ic, idx) => {
