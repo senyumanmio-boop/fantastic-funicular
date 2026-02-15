@@ -226,18 +226,92 @@
         } else { document.getElementById('tanya-kuis').innerText = "Kuis Selesai!"; document.getElementById('opsi-kuis').innerHTML = ""; }
     }
 
-    // SOS (TIC TAC TOE)
+   // SOS (TIC TAC TOE) - IMPOSSIBLE AI MODE
     let bTTT = Array(9).fill(null);
+    let gameActive = true;
+
     function resetTTT() {
         bTTT = Array(9).fill(null);
+        gameActive = true;
+        document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
         let grid = document.getElementById('ttt-board'); grid.innerHTML = "";
         for(let i=0; i<9; i++) {
-            let c = document.createElement('div'); c.className = 'ttt-cell';
-            c.onclick = () => { if(!bTTT[i]) { bTTT[i]='X'; c.innerText='X'; score+=5; updateScore(); } };
+            let c = document.createElement('div'); 
+            c.className = 'ttt-cell';
+            c.id = 'cell-' + i;
+            c.onclick = () => playerMove(i);
             grid.appendChild(c);
         }
     }
 
+    function playerMove(i) {
+        if(!bTTT[i] && gameActive) {
+            makeMove(i, 'X');
+            if(!checkWin(bTTT, 'X') && bTTT.includes(null)) {
+                document.getElementById('ttt-status').innerText = "AI sedang mikir...";
+                setTimeout(botMove, 500); // AI mikir sebentar biar dramatis
+            }
+        }
+    }
+
+    function makeMove(i, p) {
+        bTTT[i] = p;
+        let el = document.getElementById('cell-' + i);
+        el.innerText = p;
+        if(p === 'O') el.classList.add('bot');
+        
+        if(checkWin(bTTT, p)) {
+            document.getElementById('ttt-status').innerText = p === 'X' ? "Kamu Menang! 🏆" : "AI Menang! 🤖";
+            gameActive = false;
+            if(p === 'X') { score += 50; updateScore(); }
+        } else if(!bTTT.includes(null)) {
+            document.getElementById('ttt-status').innerText = "Seri! Coba lagi.";
+            gameActive = false;
+        }
+    }
+
+    function botMove() {
+        if(!gameActive) return;
+        // AI mencari langkah terbaik pake algoritma Minimax
+        let bestScore = -Infinity;
+        let move;
+        for(let i=0; i<9; i++) {
+            if(!bTTT[i]) {
+                bTTT[i] = 'O';
+                let s = minimax(bTTT, 0, false);
+                bTTT[i] = null;
+                if(s > bestScore) { bestScore = s; move = i; }
+            }
+        }
+        makeMove(move, 'O');
+        if(gameActive) document.getElementById('ttt-status').innerText = "Giliran Kamu (X)";
+    }
+
+    // Algoritma Pintar AI
+    function minimax(board, depth, isMaximizing) {
+        if(checkWin(board, 'O')) return 10;
+        if(checkWin(board, 'X')) return -10;
+        if(!board.includes(null)) return 0;
+
+        if(isMaximizing) {
+            let best = -Infinity;
+            for(let i=0; i<9; i++) {
+                if(!board[i]) { board[i]='O'; best = Math.max(best, minimax(board, depth+1, false)); board[i]=null; }
+            }
+            return best;
+        } else {
+            let best = Infinity;
+            for(let i=0; i<9; i++) {
+                if(!board[i]) { board[i]='X'; best = Math.min(best, minimax(board, depth+1, true)); board[i]=null; }
+            }
+            return best;
+        }
+    }
+
+    function checkWin(b, p) {
+        const win = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        return win.some(s => s.every(i => b[i] === p));
+    }
     // MEMORY GAME
     function startMem() {
         const icons = ['🍎','🍎','🍌','🍌','🍇','🍇','🍒','🍒','🔥','🔥','💎','💎'];
